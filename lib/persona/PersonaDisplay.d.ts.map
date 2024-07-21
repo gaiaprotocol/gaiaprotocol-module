@@ -1,0 +1,1 @@
+{"version":3,"file":"PersonaDisplay.d.ts","sourceRoot":"","sources":["../../src/persona/PersonaDisplay.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAC7C,OAAO,OAAO,MAAM,cAAc,CAAC;AAEnC,MAAM,CAAC,OAAO,OAAO,cAAe,SAAQ,OAAO;gBACrC,OAAO,EAAE,OAAO;CAG7B"}
