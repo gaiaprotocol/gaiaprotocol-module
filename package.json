@@ -2,13 +2,13 @@
   "name": "gaiaprotocol",
   "author": "Gaia Protocol",
   "homepage": "https://gaiaprotocol.com",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
   "dependencies": {
     "@common-module/wallet": "^0.0.1",
-    "ethers": "^6.13.1"
+    "ethers": "^6.13.2"
   },
   "devDependencies": {}
 }
