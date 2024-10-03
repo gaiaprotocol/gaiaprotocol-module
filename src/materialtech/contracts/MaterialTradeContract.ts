@@ -1,4 +1,4 @@
-import { ChainInfo, Contract } from "@common-module/wallet";
+import { Contract } from "@common-module/contract";
 import { JsonRpcSigner } from "ethers";
 import { MaterialTrade } from "./abi/MaterialTrade.js";
 import MaterialTradeArtifact from "./abi/MaterialTrade.json" assert {
@@ -6,9 +6,9 @@ import MaterialTradeArtifact from "./abi/MaterialTrade.json" assert {
 };
 
 export default class MaterialTradeContract extends Contract<MaterialTrade> {
-  constructor(chain: ChainInfo, address: string) {
+  constructor(rpc: string, address: string) {
     super(MaterialTradeArtifact.abi);
-    this.init(chain, address);
+    this.init(rpc, address);
   }
 
   public async createMaterial(

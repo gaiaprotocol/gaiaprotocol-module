@@ -1,7 +1,7 @@
-import { Contract } from "@common-module/wallet";
+import { Contract } from "@common-module/contract";
 import { Profiles } from "./abi/Profiles.js";
 import ProfilesArtifact from "./abi/Profiles.json" assert {
-  type: "json"
+  type: "json",
 };
 
 class ProfilesContract extends Contract<Profiles> {

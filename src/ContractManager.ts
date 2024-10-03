@@ -1,4 +1,3 @@
-import { ChainInfo } from "@common-module/wallet";
 import MaterialTradeContract from "./materialtech/contracts/MaterialTradeContract.js";
 
 class ContractManager {
@@ -6,12 +5,12 @@ class ContractManager {
 
   public addMaterialTradeContract(
     chainName: string,
-    chainInfo: ChainInfo,
+    rpc: string,
     address: string,
   ) {
     this.materialTradeContracts.set(
       chainName,
-      new MaterialTradeContract(chainInfo, address),
+      new MaterialTradeContract(rpc, address),
     );
   }
 

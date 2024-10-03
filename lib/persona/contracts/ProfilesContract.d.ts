@@ -1,4 +1,4 @@
-import { Contract } from "@common-module/wallet";
+import { Contract } from "@common-module/contract";
 import { Profiles } from "./abi/Profiles.js";
 declare class ProfilesContract extends Contract<Profiles> {
     constructor();
