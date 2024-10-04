@@ -2,7 +2,7 @@ import {
   Contract as EthersContract,
   Signer,
 } from "https://esm.sh/ethers@6.7.0";
-import { Contract } from "https://raw.githubusercontent.com/yjgaia/contract-module/refs/heads/main/deno/contract.ts";
+import { Contract } from "https://raw.githubusercontent.com/yjgaia/contract-module//main/deno/contract.ts";
 import MaterialTradeArtifact from "./abi/MaterialTrade.json" assert {
   type: "json",
 };
