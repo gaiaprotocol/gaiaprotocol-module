@@ -43,7 +43,6 @@ export default class MaterialTradeContract extends Contract<MaterialTrade> {
     address: string,
     amount: bigint,
   ): Promise<void> {
-    console.log(await this.getBuyPriceAfterFee(address, amount));
     await this.executeAndWait(
       signer,
       async (contract) =>

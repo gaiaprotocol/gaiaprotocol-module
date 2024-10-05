@@ -20,7 +20,6 @@ BEGIN
         END IF;
         IF new.event = 'Trade' THEN
             update materials set
-                price = new.args[5]::numeric,
                 supply = new.args[8]::numeric
             where
                 chain = new.chain and

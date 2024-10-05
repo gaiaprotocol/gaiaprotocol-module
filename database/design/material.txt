@@ -5,6 +5,5 @@ materials
 	name - text - not null
   symbol - text - not null
 	supply - numeric - 0
-	price - numeric - 0
 	created_at - timestampz - now()
 	updated_at - timestampz - nullable
