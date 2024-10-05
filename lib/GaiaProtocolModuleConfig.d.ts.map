@@ -1,1 +1,1 @@
-{"version":3,"file":"GaiaProtocolModuleConfig.d.ts","sourceRoot":"","sources":["../src/GaiaProtocolModuleConfig.ts"],"names":[],"mappings":"AAAA,cAAM,wBAAwB;IACrB,SAAS,UAAS;IAClB,SAAS,UAAS;CAC1B;;AAED,wBAA8C"}
+{"version":3,"file":"GaiaProtocolModuleConfig.d.ts","sourceRoot":"","sources":["../src/GaiaProtocolModuleConfig.ts"],"names":[],"mappings":"AAAA,cAAM,wBAAwB;IACrB,SAAS,UAAS;IAClB,SAAS,UAAS;IAElB,YAAY;;;;MAIjB;CACH;;AAED,wBAA8C"}

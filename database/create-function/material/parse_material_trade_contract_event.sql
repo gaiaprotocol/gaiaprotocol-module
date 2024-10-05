@@ -18,6 +18,14 @@ BEGIN
                 new.args[4]
             );
         END IF;
+        IF new.event = 'Trade' THEN
+            update materials set
+                supply = new.args[5]::numeric,
+                price = new.args[8]::numeric
+            where
+                chain = new.chain and
+                address = new.args[2];
+        END IF;
     END IF;
     RETURN NULL;
 end;$$;

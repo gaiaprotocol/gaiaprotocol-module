@@ -7,7 +7,7 @@
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
   "dependencies": {
-    "@common-module/contract": "^0.1.0",
+    "@common-module/contract-event-tracker": "^0.1.0",
     "@common-module/wallet": "^0.1.0"
   },
   "devDependencies": {}

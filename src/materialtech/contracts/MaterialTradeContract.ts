@@ -33,4 +33,34 @@ export default class MaterialTradeContract extends Contract<MaterialTrade> {
     }
     throw new Error("MaterialCreated event not found");
   }
+
+  private async getBuyPriceAfterFee(address: string, amount: bigint) {
+    return await this.viewContract.getBuyPriceAfterFee(address, amount);
+  }
+
+  public async buy(
+    signer: JsonRpcSigner,
+    address: string,
+    amount: bigint,
+  ): Promise<void> {
+    console.log(await this.getBuyPriceAfterFee(address, amount));
+    await this.executeAndWait(
+      signer,
+      async (contract) =>
+        contract.buy(address, amount, {
+          value: await this.getBuyPriceAfterFee(address, amount),
+        }),
+    );
+  }
+
+  public async sell(
+    signer: JsonRpcSigner,
+    address: string,
+    amount: bigint,
+  ): Promise<void> {
+    await this.executeAndWait(
+      signer,
+      (contract) => contract.sell(address, amount),
+    );
+  }
 }

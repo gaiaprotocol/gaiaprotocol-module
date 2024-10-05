@@ -4,18 +4,18 @@ class ContractManager {
   private materialTradeContracts = new Map<string, MaterialTradeContract>();
 
   public addMaterialTradeContract(
-    chainName: string,
+    chain: string,
     rpc: string,
     address: string,
   ) {
     this.materialTradeContracts.set(
-      chainName,
+      chain,
       new MaterialTradeContract(rpc, address),
     );
   }
 
-  public getMaterialTradeContract(chainName: string) {
-    return this.materialTradeContracts.get(chainName);
+  public getMaterialTradeContract(chain: string) {
+    return this.materialTradeContracts.get(chain);
   }
 }
 

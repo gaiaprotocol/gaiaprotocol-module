@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS "public"."materials" (
     "name" "text" NOT NULL,
     "symbol" "text" NOT NULL,
     "supply" numeric DEFAULT '0'::numeric NOT NULL,
+    "price" numeric DEFAULT '0'::numeric NOT NULL,
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
     "updated_at" timestamp with time zone
 );
@@ -19,3 +20,5 @@ ALTER TABLE "public"."materials" ENABLE ROW LEVEL SECURITY;
 GRANT ALL ON TABLE "public"."materials" TO "anon";
 GRANT ALL ON TABLE "public"."materials" TO "authenticated";
 GRANT ALL ON TABLE "public"."materials" TO "service_role";
+
+CREATE POLICY "view everyone" ON "public"."materials" FOR SELECT USING (true);
