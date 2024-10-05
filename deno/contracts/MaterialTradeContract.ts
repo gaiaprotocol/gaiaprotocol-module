@@ -20,6 +20,7 @@ export default class MaterialTradeContract extends Contract<MaterialTrade> {
 
     this.eventFilters = {
       MaterialCreated: this.ethersContract.filters.MaterialCreated(),
+      Trade: this.ethersContract.filters.Trade(),
     };
   }
 }
