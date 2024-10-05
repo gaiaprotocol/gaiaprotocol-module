@@ -3,7 +3,7 @@ import Material, { MaterialQuery } from "../db-interface/Material.js";
 
 class MaterialService extends SupabaseService<Material> {
   constructor() {
-    super("materials", MaterialQuery, 100);
+    super("materials", MaterialQuery);
   }
 
   public async fetchMaterial(chain: string, address: string) {

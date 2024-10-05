@@ -5,9 +5,8 @@ export default interface Material {
   name: string;
   symbol: string;
   supply: string;
-  price: string;
   created_at: string;
   updated_at?: string;
 }
 
-export const MaterialQuery = "*, supply::text, price::text";
+export const MaterialQuery = "*, supply::text";

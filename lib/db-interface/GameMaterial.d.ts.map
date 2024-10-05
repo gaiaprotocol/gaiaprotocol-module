@@ -1,0 +1,1 @@
+{"version":3,"file":"GameMaterial.d.ts","sourceRoot":"","sources":["../../src/db-interface/GameMaterial.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,YAAY;IACnC,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,EAAE,MAAM,CAAC;IAChB,UAAU,EAAE,MAAM,CAAC;CACpB;AAED,eAAO,MAAM,iBAAiB,MAAM,CAAC"}
