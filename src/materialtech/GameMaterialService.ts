@@ -1,8 +1,8 @@
 import { SupabaseService } from "@common-module/supabase";
 import GameMaterial, {
   GameMaterialQuery,
-} from "../db-interface/GameMaterial.js";
-import Material from "../db-interface/Material.js";
+} from "../db-interfaces/GameMaterial.js";
+import Material from "../db-interfaces/Material.js";
 
 class GameMaterialService extends SupabaseService<GameMaterial> {
   constructor() {

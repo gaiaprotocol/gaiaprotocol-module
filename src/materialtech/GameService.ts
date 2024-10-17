@@ -1,5 +1,5 @@
 import { SupabaseService } from "@common-module/supabase";
-import Game, { GameQuery } from "../db-interface/Game.js";
+import Game, { GameQuery } from "../db-interfaces/Game.js";
 
 class GameService extends SupabaseService<Game> {
   constructor() {
