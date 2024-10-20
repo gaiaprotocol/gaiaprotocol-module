@@ -1,4 +1,4 @@
-import GaiaProtocolModuleConfig from "../GaiaProtocolModuleConfig.js";
+import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 
 class MaterialTechConnector {
   public async getMaterialBalances(
@@ -8,7 +8,7 @@ class MaterialTechConnector {
   }
 
   public openGameInfo(gameId: string) {
-    const materialTechDomain = GaiaProtocolModuleConfig.isTestnet
+    const materialTechDomain = GaiaProtocolConfig.isTestnet
       ? "https://testnet.material.tech"
       : "https://material.tech";
     window.open(`${materialTechDomain}/game/${gameId}`);

@@ -1,10 +1,10 @@
-import GaiaProtocolModuleConfig from "../GaiaProtocolModuleConfig.js";
+import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 
 class MaterialPriceCalculator {
   private getPrice(supply: bigint, amount: bigint): bigint {
     const startPriceWei =
-      GaiaProtocolModuleConfig.materialTech.priceIncrementPerToken +
-      (supply * GaiaProtocolModuleConfig.materialTech.priceIncrementPerToken) /
+      GaiaProtocolConfig.materialTech.priceIncrementPerToken +
+      (supply * GaiaProtocolConfig.materialTech.priceIncrementPerToken) /
         (10n ** 18n);
 
     let endSupply = supply + amount;
@@ -15,9 +15,9 @@ class MaterialPriceCalculator {
     }
 
     const endPriceWei =
-      GaiaProtocolModuleConfig.materialTech.priceIncrementPerToken +
+      GaiaProtocolConfig.materialTech.priceIncrementPerToken +
       (endSupply *
-          GaiaProtocolModuleConfig.materialTech.priceIncrementPerToken) /
+          GaiaProtocolConfig.materialTech.priceIncrementPerToken) /
         (10n ** 18n);
 
     const averagePriceWei = (startPriceWei + endPriceWei) / 2n;

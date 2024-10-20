@@ -1,5 +1,5 @@
 import { SupabaseService } from "@common-module/supabase";
-import Material, { MaterialQuery } from "../db-interfaces/Material.js";
+import Material, { MaterialQuery } from "../entities/Material.js";
 
 class MaterialService extends SupabaseService<Material> {
   constructor() {
