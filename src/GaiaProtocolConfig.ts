@@ -1,4 +1,4 @@
-import { SupabaseConnector } from "@common-module/supabase";
+import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import {
   WalletLoginConfig,
   WalletLoginManager,
@@ -29,7 +29,12 @@ class GaiaProtocolConfig {
     this._supabaesConnector = connector;
   }
 
-  public init(isDevMode: boolean, isTestnet: boolean) {
+  public init(
+    isDevMode: boolean,
+    isTestnet: boolean,
+    supabaseConnectorForApp?: SupabaseConnector,
+    authTokenManagerForApp?: AuthTokenManager,
+  ) {
     this.isDevMode = isDevMode;
     this.isTestnet = isTestnet;
 
@@ -40,6 +45,17 @@ class GaiaProtocolConfig {
     );
 
     WalletLoginConfig.supabaseConnector = this.supabaseConnector;
+
+    if (supabaseConnectorForApp) {
+      if (!authTokenManagerForApp) {
+        throw new Error("Auth token manager not set");
+      }
+
+      WalletLoginConfig.executeAfterLogin = async (token: string) => {
+        authTokenManagerForApp.token = await supabaseConnectorForApp
+          .callEdgeFunction<string>("inject-login-credentials", { token });
+      };
+    }
   }
 }
 

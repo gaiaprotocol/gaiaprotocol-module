@@ -1,4 +1,4 @@
-import { SupabaseConnector } from "@common-module/supabase";
+import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 declare class GaiaProtocolConfig {
     isDevMode: boolean;
     isTestnet: boolean;
@@ -7,7 +7,7 @@ declare class GaiaProtocolConfig {
     private _supabaesConnector;
     get supabaseConnector(): SupabaseConnector;
     set supabaseConnector(connector: SupabaseConnector);
-    init(isDevMode: boolean, isTestnet: boolean): void;
+    init(isDevMode: boolean, isTestnet: boolean, supabaseConnectorForApp?: SupabaseConnector, authTokenManagerForApp?: AuthTokenManager): void;
 }
 declare const _default: GaiaProtocolConfig;
 export default _default;
