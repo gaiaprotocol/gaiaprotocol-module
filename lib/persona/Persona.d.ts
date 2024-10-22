@@ -1,13 +1,13 @@
 export default interface Persona {
-    wallet_address: string;
-    ens_domain: string;
-    pfp_address: string;
-    pfp_token_id: string;
-    name: string;
+    walletAddress: string;
+    name?: string;
+    isEnsName: boolean;
+    isBasename: boolean;
+    isGaiaName: boolean;
+    profileImageUrl?: string;
+    nftAddress?: string;
+    nftTokenId?: string;
     bio: string;
-    social_links: string[];
-    is_on_chain_profile: boolean;
-    created_at: string;
-    updated_at: string;
+    socialLinks: string[];
 }
 //# sourceMappingURL=Persona.d.ts.map

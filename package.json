@@ -8,9 +8,8 @@
   "main": "./lib/index.js",
   "dependencies": {
     "@common-module/contract-event-tracker": "^0.1.2",
-    "@common-module/supabase": "^0.1.2",
     "@common-module/wallet": "^0.1.2",
-    "@common-module/wallet-login": "^0.1.2"
+    "@common-module/wallet-login": "^0.1.3"
   },
   "devDependencies": {}
 }
