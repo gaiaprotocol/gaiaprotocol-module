@@ -1,8 +1,14 @@
+import {
+  SocialCompConfig,
+  UserManager,
+} from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
+import { AddressUtils } from "@common-module/wallet";
 import {
   WalletLoginConfig,
   WalletLoginManager,
 } from "@common-module/wallet-login";
+import UserAvatar from "./UserAvatar.js";
 
 class GaiaProtocolConfig {
   public isDevMode = false;
@@ -38,6 +44,8 @@ class GaiaProtocolConfig {
     this.isDevMode = isDevMode;
     this.isTestnet = isTestnet;
 
+    SocialCompConfig.Avatar = UserAvatar;
+
     this.supabaseConnector = new SupabaseConnector(
       this.supabaseUrls[isTestnet ? "testnet" : "mainnet"],
       this.supabaseKeys[isTestnet ? "testnet" : "mainnet"],
@@ -56,6 +64,30 @@ class GaiaProtocolConfig {
           .callEdgeFunction<string>("inject-login-credentials", { token });
       };
     }
+
+    if (WalletLoginManager.isLoggedIn) {
+      UserManager.addUser({
+        id: WalletLoginManager.loggedInAddress!,
+        name: "John Doe",
+        username: AddressUtils.shortenAddress(
+          WalletLoginManager.loggedInAddress!,
+        ),
+        avatarUrl: "https://example.com/avatar.jpg",
+      });
+    }
+
+    WalletLoginManager.on("loginStatusChanged", (loggedIn) => {
+      if (loggedIn) {
+        UserManager.addUser({
+          id: WalletLoginManager.loggedInAddress!,
+          name: "John Doe",
+          username: AddressUtils.shortenAddress(
+            WalletLoginManager.loggedInAddress!,
+          ),
+          avatarUrl: "https://example.com/avatar.jpg",
+        });
+      }
+    });
   }
 }
 
