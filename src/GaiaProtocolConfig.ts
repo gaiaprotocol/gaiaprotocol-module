@@ -1,14 +1,14 @@
-import {
-  SocialCompConfig,
-  UserManager,
-} from "@common-module/social-components";
+import { SocialCompConfig } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { AddressUtils } from "@common-module/wallet";
 import {
   WalletLoginConfig,
   WalletLoginManager,
+  WalletLoginPopup,
 } from "@common-module/wallet-login";
 import UserAvatar from "./UserAvatar.js";
+import PersonaRepository from "./persona/PersonaRepository.js";
+import PersonaUtils from "./persona/PersonaUtils.js";
 
 class GaiaProtocolConfig {
   public isDevMode = false;
@@ -44,8 +44,6 @@ class GaiaProtocolConfig {
     this.isDevMode = isDevMode;
     this.isTestnet = isTestnet;
 
-    SocialCompConfig.Avatar = UserAvatar;
-
     this.supabaseConnector = new SupabaseConnector(
       this.supabaseUrls[isTestnet ? "testnet" : "mainnet"],
       this.supabaseKeys[isTestnet ? "testnet" : "mainnet"],
@@ -53,6 +51,7 @@ class GaiaProtocolConfig {
     );
 
     WalletLoginConfig.supabaseConnector = this.supabaseConnector;
+    PersonaRepository.supabaseConnector = this.supabaseConnector;
 
     if (supabaseConnectorForApp) {
       if (!authTokenManagerForApp) {
@@ -65,29 +64,23 @@ class GaiaProtocolConfig {
       };
     }
 
-    if (WalletLoginManager.isLoggedIn) {
-      UserManager.addUser({
-        id: WalletLoginManager.loggedInAddress!,
-        name: "John Doe",
-        username: AddressUtils.shortenAddress(
-          WalletLoginManager.loggedInAddress!,
-        ),
-        avatarUrl: "https://example.com/avatar.jpg",
-      });
-    }
+    SocialCompConfig.Avatar = UserAvatar;
 
-    WalletLoginManager.on("loginStatusChanged", (loggedIn) => {
-      if (loggedIn) {
-        UserManager.addUser({
-          id: WalletLoginManager.loggedInAddress!,
-          name: "John Doe",
-          username: AddressUtils.shortenAddress(
-            WalletLoginManager.loggedInAddress!,
-          ),
-          avatarUrl: "https://example.com/avatar.jpg",
-        });
-      }
-    });
+    SocialCompConfig.login = async () => new WalletLoginPopup();
+
+    SocialCompConfig.fetchUser = async (walletAddress: string) => {
+      const persona = await PersonaRepository.fetchPersona(walletAddress);
+      return persona ? PersonaUtils.convertPersonaToSocialUser(persona) : {
+        id: walletAddress,
+        name: AddressUtils.shortenAddress(walletAddress),
+        username: AddressUtils.shortenAddress(walletAddress),
+      };
+    };
+
+    SocialCompConfig.fetchBulkUsers = async (walletAddresses: string[]) => {
+      const personas = await PersonaRepository.fetchPersonas(walletAddresses);
+      return personas.map(PersonaUtils.convertPersonaToSocialUser);
+    };
   }
 }
 
