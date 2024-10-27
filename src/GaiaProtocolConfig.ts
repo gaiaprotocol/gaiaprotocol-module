@@ -1,4 +1,4 @@
-import { SocialCompConfig } from "@common-module/social-components";
+import { SocialCompConfig, User } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { AddressUtils } from "@common-module/wallet";
 import {
@@ -6,7 +6,7 @@ import {
   WalletLoginManager,
   WalletLoginPopup,
 } from "@common-module/wallet-login";
-import UserAvatar from "./UserAvatar.js";
+import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";
 
@@ -34,6 +34,10 @@ class GaiaProtocolConfig {
   public set supabaseConnector(connector: SupabaseConnector) {
     this._supabaesConnector = connector;
   }
+
+  public onLoggedInUserPersonaNotFound: () => void = () => {
+    throw new Error("Persona not found for logged in user");
+  };
 
   public init(
     isDevMode: boolean,
@@ -64,23 +68,47 @@ class GaiaProtocolConfig {
       };
     }
 
-    SocialCompConfig.Avatar = UserAvatar;
+    SocialCompConfig.Avatar = class extends PersonaAvatar {
+      constructor(user: User) {
+        super(user.id, 32);
+      }
+    };
 
     SocialCompConfig.login = async () => new WalletLoginPopup();
 
-    SocialCompConfig.fetchUser = async (walletAddress: string) => {
-      const persona = await PersonaRepository.fetchPersona(walletAddress);
-      return persona ? PersonaUtils.convertPersonaToSocialUser(persona) : {
+    SocialCompConfig.createFallbackUser = (walletAddress: string) => {
+      return {
         id: walletAddress,
         name: AddressUtils.shortenAddress(walletAddress),
         username: AddressUtils.shortenAddress(walletAddress),
       };
     };
 
+    SocialCompConfig.fetchUser = async (walletAddress: string) => {
+      const persona = await PersonaRepository.fetchPersona(walletAddress);
+      return persona
+        ? PersonaUtils.convertPersonaToSocialUser(persona)
+        : undefined;
+    };
+
     SocialCompConfig.fetchBulkUsers = async (walletAddresses: string[]) => {
       const personas = await PersonaRepository.fetchPersonas(walletAddresses);
       return personas.map(PersonaUtils.convertPersonaToSocialUser);
     };
+
+    this.checkLoggedInUserHasPersona();
+    WalletLoginManager.on(
+      "loginStatusChanged",
+      () => this.checkLoggedInUserHasPersona(),
+    );
+  }
+
+  private async checkLoggedInUserHasPersona() {
+    if (!WalletLoginManager.isLoggedIn) return;
+
+    const walletAddress = WalletLoginManager.loggedInAddress!;
+    const persona = await PersonaRepository.fetchPersona(walletAddress);
+    if (!persona) this.onLoggedInUserPersonaNotFound();
   }
 }
 

@@ -3,7 +3,7 @@ export default interface PersonaEntity {
 
   name?: string;
   is_ens_name?: boolean;
-  is_base_name?: boolean;
+  is_basename?: boolean;
   is_gaia_name?: boolean;
 
   profile_image_url?: string;
@@ -11,7 +11,6 @@ export default interface PersonaEntity {
   nft_token_id?: string;
 
   bio?: string;
-  social_links?: string[];
 }
 
 export const PersonaQuery = "*";

@@ -1,0 +1,1 @@
+{"version":3,"file":"PersonaAvatar.d.ts","sourceRoot":"","sources":["../../src/persona/PersonaAvatar.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAI7C,MAAM,CAAC,OAAO,OAAO,aAAc,SAAQ,OAAO;IACpC,OAAO,CAAC,aAAa;IAAU,OAAO,CAAC,IAAI;gBAAnC,aAAa,EAAE,MAAM,EAAU,IAAI,EAAE,MAAM;YAKjD,MAAM;CAQrB"}
