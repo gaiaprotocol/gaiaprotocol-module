@@ -1,4 +1,4 @@
-import { SocialCompConfig, User } from "@common-module/social-components";
+import { SocialCompConfig } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { AddressUtils } from "@common-module/wallet";
 import {
@@ -68,27 +68,18 @@ class GaiaProtocolConfig {
       };
     }
 
-    SocialCompConfig.Avatar = class extends PersonaAvatar {
-      constructor(user: User) {
-        super(user.id, 32);
-      }
-    };
+    SocialCompConfig.Avatar = PersonaAvatar;
 
     SocialCompConfig.login = async () => new WalletLoginPopup();
 
-    SocialCompConfig.createFallbackUser = (walletAddress: string) => {
-      return {
+    SocialCompConfig.fetchUser = async (walletAddress: string) => {
+      const persona = await PersonaRepository.fetchPersona(walletAddress);
+      return persona ? PersonaUtils.convertPersonaToSocialUser(persona) : {
         id: walletAddress,
         name: AddressUtils.shortenAddress(walletAddress),
         username: AddressUtils.shortenAddress(walletAddress),
+        isFallback: true,
       };
-    };
-
-    SocialCompConfig.fetchUser = async (walletAddress: string) => {
-      const persona = await PersonaRepository.fetchPersona(walletAddress);
-      return persona
-        ? PersonaUtils.convertPersonaToSocialUser(persona)
-        : undefined;
     };
 
     SocialCompConfig.fetchBulkUsers = async (walletAddresses: string[]) => {

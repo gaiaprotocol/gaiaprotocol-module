@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS "public"."personas" (
   "nft_address" "text",
   "nft_token_id" "text",
   "bio" "text",
+  "social_links" "text"[],
   "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
   "updated_at" timestamp with time zone
 );

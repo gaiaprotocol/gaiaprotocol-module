@@ -8,5 +8,6 @@ personas
   nft_address - text - nullable
   nft_token_id - text - nullable
   bio - text - nullable
+  social_links - string[] - nullable
 	created_at - timestampz - now()
 	updated_at - timestampz - nullable

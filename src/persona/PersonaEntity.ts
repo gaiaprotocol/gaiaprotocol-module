@@ -11,6 +11,7 @@ export default interface PersonaEntity {
   nft_token_id?: string;
 
   bio?: string;
+  social_links?: string[];
 }
 
 export const PersonaQuery = "*";

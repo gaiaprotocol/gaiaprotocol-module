@@ -5,10 +5,12 @@ import {
   Input,
   InvisibleFileInput,
 } from "@common-module/app-components";
+import { AddressUtils } from "@common-module/wallet";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import EditIcon from "./icons/EditIcon.js";
 import PersonaAvatar from "./PersonaAvatar.js";
 import PersonaEntity from "./PersonaEntity.js";
+import PersonaUtils from "./PersonaUtils.js";
 import ProfileImageSourceSelectMenu from "./ProfileImageSourceSelectMenu.js";
 
 export default class PersonaForm extends DomNode {
@@ -23,7 +25,16 @@ export default class PersonaForm extends DomNode {
     this.append(
       el(
         ".avatar",
-        this.avatar = new PersonaAvatar(walletAddress, 120),
+        this.avatar = new PersonaAvatar(
+          existingPersona
+            ? PersonaUtils.convertPersonaToSocialUser(existingPersona)
+            : {
+              id: walletAddress,
+              name: AddressUtils.shortenAddress(walletAddress),
+              username: AddressUtils.shortenAddress(walletAddress),
+            },
+          120,
+        ),
         new Button(".edit", {
           type: ButtonType.Circle,
           icon: new EditIcon(),

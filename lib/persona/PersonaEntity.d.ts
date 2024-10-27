@@ -8,6 +8,7 @@ export default interface PersonaEntity {
     nft_address?: string;
     nft_token_id?: string;
     bio?: string;
+    social_links?: string[];
 }
 export declare const PersonaQuery = "*";
 //# sourceMappingURL=PersonaEntity.d.ts.map

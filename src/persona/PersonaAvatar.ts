@@ -1,12 +1,12 @@
 import { DomNode, el } from "@common-module/app";
 import { AppCompConfig } from "@common-module/app-components";
+import { User } from "@common-module/social-components";
 import { WalletAvatar } from "@common-module/wallet";
-import PersonaRepository from "./PersonaRepository.js";
 
 export default class PersonaAvatar extends DomNode {
   private loadingSpinner?: DomNode;
 
-  constructor(private walletAddress: string, private size: number) {
+  constructor(private user: User, private size: number = 32) {
     super(".persona-avatar");
     this.load();
   }
@@ -14,12 +14,8 @@ export default class PersonaAvatar extends DomNode {
   public async load(): Promise<void> {
     this.showLoading();
 
-    const persona = await PersonaRepository.fetchPersona(this.walletAddress);
-    this.empty().append(
-      persona
-        ? new WalletAvatar(this.walletAddress, { size: this.size })
-        : new WalletAvatar(this.walletAddress, { size: this.size }),
-    );
+    //TODO:
+    this.empty().append(new WalletAvatar(this.user.id, { size: this.size }));
 
     this.hideLoading();
   }
