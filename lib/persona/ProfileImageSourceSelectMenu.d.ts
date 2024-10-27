@@ -1,5 +1,11 @@
 import { DropdownMenu } from "@common-module/app-components";
-export default class ProfileImageSourceSelectMenu extends DropdownMenu {
-    constructor(left: number, top: number);
+interface ProfileImageSourceSelectMenuOptions {
+    imageExists: boolean;
+    onSelected: (source: "upload" | "nft") => void;
+    onDeleted: () => void;
 }
+export default class ProfileImageSourceSelectMenu extends DropdownMenu {
+    constructor(left: number, top: number, options: ProfileImageSourceSelectMenuOptions);
+}
+export {};
 //# sourceMappingURL=ProfileImageSourceSelectMenu.d.ts.map
