@@ -4,13 +4,13 @@ import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
 export default class UserGaiaNameList extends DomNode {
   constructor() {
     super(".user-gaia-name-list");
-    this.loadNames();
+    this.loadName();
   }
 
-  public async loadNames(): Promise<void> {
+  public async loadName(): Promise<void> {
     const names = await GaiaProtocolConfig.supabaseConnector.callEdgeFunction<
-      string[]
-    >("get-user-gaia-names");
+      string
+    >("get-user-gaia-name");
 
     console.log(names);
   }

@@ -93,7 +93,7 @@ export default class PersonaForm extends DomNode {
             `.ens-name${existingPersona?.is_ens_name ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
-              title: "Select ENS Name",
+              title: "Use ENS Name",
               onClick: () => new ENSSelectorModal(),
             },
           ),
@@ -101,7 +101,7 @@ export default class PersonaForm extends DomNode {
             `.basename${existingPersona?.is_basename ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
-              title: "Select Basename",
+              title: "Use Basename",
               onClick: () => new BasenameSelectorModal(),
             },
           ),
@@ -109,7 +109,7 @@ export default class PersonaForm extends DomNode {
             `.gaia-name${existingPersona?.is_gaia_name ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
-              title: "Select Gaia Name",
+              title: "Use Gaia Name",
               onClick: () => new GaiaNameSelectorModal(),
             },
           ),

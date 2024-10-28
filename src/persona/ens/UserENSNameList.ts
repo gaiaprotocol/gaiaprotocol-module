@@ -4,14 +4,14 @@ import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
 export default class UserENSNameList extends DomNode {
   constructor() {
     super(".user-ens-name-list");
-    this.loadNames();
+    this.loadName();
   }
 
-  public async loadNames(): Promise<void> {
-    const names = await GaiaProtocolConfig.supabaseConnector.callEdgeFunction<
-      string[]
-    >("get-user-ens-names");
+  public async loadName(): Promise<void> {
+    const name = await GaiaProtocolConfig.supabaseConnector.callEdgeFunction<
+      string
+    >("get-user-ens-name");
 
-    console.log(names);
+    console.log(name);
   }
 }

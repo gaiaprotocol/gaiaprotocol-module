@@ -1,1 +1,1 @@
-{"version":3,"file":"UserGaiaNameList.d.ts","sourceRoot":"","sources":["../../../src/persona/gaia-name/UserGaiaNameList.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAG7C,MAAM,CAAC,OAAO,OAAO,gBAAiB,SAAQ,OAAO;;IAMtC,SAAS,IAAI,OAAO,CAAC,IAAI,CAAC;CAOxC"}
+{"version":3,"file":"UserGaiaNameList.d.ts","sourceRoot":"","sources":["../../../src/persona/gaia-name/UserGaiaNameList.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAG7C,MAAM,CAAC,OAAO,OAAO,gBAAiB,SAAQ,OAAO;;IAMtC,QAAQ,IAAI,OAAO,CAAC,IAAI,CAAC;CAOvC"}
