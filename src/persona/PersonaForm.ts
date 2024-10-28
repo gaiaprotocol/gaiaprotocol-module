@@ -7,7 +7,11 @@ import {
 } from "@common-module/app-components";
 import { AddressUtils } from "@common-module/wallet";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
+import BasenameSelectorModal from "./basename/BasenameSelectorModal.js";
+import ENSSelectorModal from "./ens/ENSNameSelectorModal.js";
+import GaiaNameSelectorModal from "./gaia-name/GaiaNameSelectorModal.js";
 import EditIcon from "./icons/EditIcon.js";
+import NFTSelectorModal from "./nft/NFTSelectorModal.js";
 import PersonaAvatar from "./PersonaAvatar.js";
 import PersonaEntity from "./PersonaEntity.js";
 import PersonaUtils from "./PersonaUtils.js";
@@ -48,6 +52,8 @@ export default class PersonaForm extends DomNode {
                 onSelected: (source) => {
                   if (source === "upload") {
                     this.invisibleFileInput.openFileSelector();
+                  } else if (source === "nft") {
+                    new NFTSelectorModal();
                   }
                 },
                 onDeleted: () => {
@@ -88,6 +94,7 @@ export default class PersonaForm extends DomNode {
             {
               type: ButtonType.Outlined,
               title: "Select ENS Name",
+              onClick: () => new ENSSelectorModal(),
             },
           ),
           new Button(
@@ -95,6 +102,7 @@ export default class PersonaForm extends DomNode {
             {
               type: ButtonType.Outlined,
               title: "Select Basename",
+              onClick: () => new BasenameSelectorModal(),
             },
           ),
           new Button(
@@ -102,6 +110,7 @@ export default class PersonaForm extends DomNode {
             {
               type: ButtonType.Outlined,
               title: "Select Gaia Name",
+              onClick: () => new GaiaNameSelectorModal(),
             },
           ),
         ),
