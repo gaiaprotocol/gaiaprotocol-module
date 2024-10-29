@@ -6,6 +6,7 @@ import {
   WalletLoginManager,
   WalletLoginPopup,
 } from "@common-module/wallet-login";
+import LogoutIcon from "./icons/LogoutIcon.js";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";
@@ -35,9 +36,7 @@ class GaiaProtocolConfig {
     this._supabaesConnector = connector;
   }
 
-  public onLoggedInUserPersonaNotFound: () => void = () => {
-    throw new Error("Persona not found for logged in user");
-  };
+  public onLoggedInUserPersonaNotFound: () => void = () => {};
 
   public init(
     isDevMode: boolean,
@@ -69,6 +68,7 @@ class GaiaProtocolConfig {
     }
 
     SocialCompConfig.Avatar = PersonaAvatar;
+    SocialCompConfig.LogoutIcon = LogoutIcon;
 
     SocialCompConfig.login = async () => new WalletLoginPopup();
 
@@ -98,8 +98,8 @@ class GaiaProtocolConfig {
     if (!WalletLoginManager.isLoggedIn) return;
 
     const walletAddress = WalletLoginManager.loggedInAddress!;
-    const persona = await PersonaRepository.fetchPersona(walletAddress);
-    if (!persona) this.onLoggedInUserPersonaNotFound();
+    const user = await SocialCompConfig.fetchUser(walletAddress);
+    if (user.isFallback) this.onLoggedInUserPersonaNotFound();
   }
 }
 
