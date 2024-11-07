@@ -1,6 +1,6 @@
 import { DomNode } from "@common-module/app";
 import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
-import OpenSeaNFT from "./OpenSeaNFT.js";
+import OpenSeaNFTData from "../../opensea/OpenSeaNFTData.js";
 
 export default class UserNFTList extends DomNode {
   constructor() {
@@ -9,11 +9,11 @@ export default class UserNFTList extends DomNode {
   }
 
   public async loadNFTs(): Promise<void> {
-    const nfts = await GaiaProtocolConfig.supabaseConnector.callEdgeFunction<{
-      nfts: OpenSeaNFT[];
+    const data = await GaiaProtocolConfig.supabaseConnector.callEdgeFunction<{
+      nfts: OpenSeaNFTData[];
       next?: string;
-    }>("get-user-nfts");
+    }>("get-user-nfts", {});
 
-    console.log(nfts);
+    console.log(data);
   }
 }

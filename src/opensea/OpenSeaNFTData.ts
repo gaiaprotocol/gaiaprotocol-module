@@ -1,6 +1,6 @@
 export type TokenStandard = "erc721" | "erc1155";
 
-export default interface OpenSeaNFT {
+export default interface OpenSeaNFTData {
   // Required fields
   identifier: string;
   collection: string;
