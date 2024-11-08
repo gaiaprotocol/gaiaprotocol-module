@@ -15,13 +15,13 @@ export default class PersonaAvatar extends DomNode {
     this.showLoading();
 
     //TODO:
-    this.empty().append(new WalletAvatar(this.user.id, { size: this.size }));
+    this.clear().append(new WalletAvatar(this.user.id, { size: this.size }));
 
     this.hideLoading();
   }
 
   public set imageSrc(src: string) {
-    this.empty().showLoading();
+    this.clear().showLoading();
     this.append(el("img", {
       src,
       onload: () => this.hideLoading(),

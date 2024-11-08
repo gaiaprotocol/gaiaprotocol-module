@@ -59,7 +59,7 @@ export default class PersonaForm extends DomNode {
                 onDeleted: () => {
                   this.profileImageUrl = undefined;
                   this.thumbnailImageUrl = undefined;
-                  this.avatar.empty().load();
+                  this.avatar.clear().load();
                 },
               },
             );
@@ -141,7 +141,7 @@ export default class PersonaForm extends DomNode {
   }
 
   private async uploadImage(file: File) {
-    this.avatar.empty().showLoading();
+    this.avatar.clear().showLoading();
 
     const [optimizedImageUrl, thumbnailImageUrl] = await Promise.all([
       this.optimizeAndUploadImage(file, 1024),
