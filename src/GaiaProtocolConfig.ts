@@ -6,7 +6,6 @@ import {
   WalletLoginManager,
   WalletLoginPopup,
 } from "@common-module/wallet-login";
-import { LogoutIcon } from "@gaiaprotocol/svg-icons";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";
@@ -58,7 +57,6 @@ class GaiaProtocolConfig {
     PersonaRepository.supabaseConnector = this.supabaseConnector;
 
     SocialCompConfig.Avatar = PersonaAvatar;
-    SocialCompConfig.LogoutIcon = LogoutIcon;
 
     SocialCompConfig.login = async () => new WalletLoginPopup();
 
