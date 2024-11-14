@@ -1,5 +1,5 @@
-import { DomNode } from "@common-module/app";
-export default class LogoutIcon extends DomNode {
+import { SvgIcon } from "@common-module/app-components";
+export default class LogoutIcon extends SvgIcon {
     constructor();
 }
 //# sourceMappingURL=LogoutIcon.d.ts.map

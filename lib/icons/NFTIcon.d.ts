@@ -1,5 +1,5 @@
-import { DomNode } from "@common-module/app";
-export default class NFTIcon extends DomNode {
+import { SvgIcon } from "@common-module/app-components";
+export default class NFTIcon extends SvgIcon {
     constructor();
 }
 //# sourceMappingURL=NFTIcon.d.ts.map

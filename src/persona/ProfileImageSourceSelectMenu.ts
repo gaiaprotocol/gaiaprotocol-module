@@ -3,9 +3,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
 } from "@common-module/app-components";
-import DeleteIcon from "../icons/DeleteIcon.js";
-import ImageIcon from "../icons/ImageIcon.js";
-import NFTIcon from "../icons/NFTIcon.js";
+import { DeleteIcon, ImageIcon, NFTIcon } from "@gaiaprotocol/svg-icons";
 
 interface ProfileImageSourceSelectMenuOptions {
   imageExists: boolean;

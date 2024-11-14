@@ -6,7 +6,7 @@ import {
   WalletLoginManager,
   WalletLoginPopup,
 } from "@common-module/wallet-login";
-import LogoutIcon from "./icons/LogoutIcon.js";
+import { LogoutIcon } from "@gaiaprotocol/svg-icons";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";

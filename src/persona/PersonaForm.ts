@@ -6,11 +6,11 @@ import {
   InvisibleFileInput,
 } from "@common-module/app-components";
 import { AddressUtils } from "@common-module/wallet";
+import { EditIcon } from "@gaiaprotocol/svg-icons";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import BasenameSelectorModal from "./basename/BasenameSelectorModal.js";
 import ENSSelectorModal from "./ens/ENSNameSelectorModal.js";
 import GaiaNameSelectorModal from "./gaia-name/GaiaNameSelectorModal.js";
-import EditIcon from "../icons/EditIcon.js";
 import NFTSelectorModal from "./nft/NFTSelectorModal.js";
 import PersonaAvatar from "./PersonaAvatar.js";
 import PersonaEntity from "./PersonaEntity.js";

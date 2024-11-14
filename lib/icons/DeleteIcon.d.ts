@@ -1,5 +1,5 @@
-import { DomNode } from "@common-module/app";
-export default class DeleteIcon extends DomNode {
+import { SvgIcon } from "@common-module/app-components";
+export default class DeleteIcon extends SvgIcon {
     constructor();
 }
 //# sourceMappingURL=DeleteIcon.d.ts.map

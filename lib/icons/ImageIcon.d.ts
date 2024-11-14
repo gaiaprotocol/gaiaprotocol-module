@@ -1,5 +1,5 @@
-import { DomNode } from "@common-module/app";
-export default class ImageIcon extends DomNode {
+import { SvgIcon } from "@common-module/app-components";
+export default class ImageIcon extends SvgIcon {
     constructor();
 }
 //# sourceMappingURL=ImageIcon.d.ts.map
