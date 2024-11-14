@@ -41,11 +41,9 @@ class GaiaProtocolConfig {
 
   public onLoggedInUserPersonaNotFound: () => void = () => {};
 
-  public init(
+  public initOnlyForGaiaProtocol(
     isDevMode: boolean,
     isTestnet: boolean,
-    supabaseConnectorForApp?: SupabaseConnector,
-    authTokenManagerForApp?: AuthTokenManager,
   ) {
     this.isDevMode = isDevMode;
     this.isTestnet = isTestnet;
@@ -58,17 +56,6 @@ class GaiaProtocolConfig {
 
     WalletLoginConfig.supabaseConnector = this.supabaseConnector;
     PersonaRepository.supabaseConnector = this.supabaseConnector;
-
-    if (supabaseConnectorForApp) {
-      if (!authTokenManagerForApp) {
-        throw new Error("Auth token manager not set");
-      }
-
-      WalletLoginConfig.executeAfterLogin = async (token: string) => {
-        authTokenManagerForApp.token = await supabaseConnectorForApp
-          .callEdgeFunction<string>("inject-login-credentials", { token });
-      };
-    }
 
     SocialCompConfig.Avatar = PersonaAvatar;
     SocialCompConfig.LogoutIcon = LogoutIcon;
@@ -103,6 +90,20 @@ class GaiaProtocolConfig {
     const walletAddress = WalletLoginManager.loggedInAddress!;
     const user = await SocialCompConfig.fetchUser(walletAddress);
     if (user.isFallback) this.onLoggedInUserPersonaNotFound();
+  }
+
+  public init(
+    isDevMode: boolean,
+    isTestnet: boolean,
+    supabaseConnectorForApp: SupabaseConnector,
+    authTokenManagerForApp: AuthTokenManager,
+  ) {
+    this.initOnlyForGaiaProtocol(isDevMode, isTestnet);
+
+    WalletLoginConfig.executeAfterLogin = async (token: string) => {
+      authTokenManagerForApp.token = await supabaseConnectorForApp
+        .callEdgeFunction<string>("inject-login-credentials", { token });
+    };
   }
 }
 
