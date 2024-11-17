@@ -1,10 +1,12 @@
-import { SocialCompConfig } from "@common-module/social-components";
+import {
+  SocialCompConfig,
+  UserManager,
+} from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { AddressUtils } from "@common-module/wallet";
 import {
   WalletLoginConfig,
   WalletLoginManager,
-  WalletLoginPopup,
 } from "@common-module/wallet-login";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
@@ -58,7 +60,10 @@ class GaiaProtocolConfig {
 
     SocialCompConfig.Avatar = PersonaAvatar;
 
-    SocialCompConfig.login = async () => new WalletLoginPopup();
+    SocialCompConfig.login = async () => {
+      const walletAddress = await WalletLoginManager.login();
+      await UserManager.getUser(walletAddress);
+    };
 
     SocialCompConfig.fetchUser = async (walletAddress: string) => {
       const persona = await PersonaRepository.fetchPersona(walletAddress);
