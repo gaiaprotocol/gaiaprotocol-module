@@ -88,7 +88,7 @@ class GaiaProtocolConfig {
   }
 
   private async checkLoggedInUserHasPersona() {
-    if (!WalletLoginManager.isLoggedIn) return;
+    if (!WalletLoginManager.isLoggedIn()) return;
 
     const walletAddress = WalletLoginManager.getLoggedInAddress()!;
     const user = await SocialCompConfig.fetchUser(walletAddress);
