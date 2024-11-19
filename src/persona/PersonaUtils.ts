@@ -1,5 +1,5 @@
 import { User } from "@common-module/social-components";
-import { AddressUtils } from "@common-module/wallet";
+import { AddressUtils } from "@common-module/wallet-utils";
 import PersonaEntity from "./PersonaEntity.js";
 
 class PersonaUtils {

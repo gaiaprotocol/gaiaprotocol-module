@@ -5,7 +5,7 @@ import {
   Input,
   InvisibleFileInput,
 } from "@common-module/app-components";
-import { AddressUtils } from "@common-module/wallet";
+import { AddressUtils } from "@common-module/wallet-utils";
 import { EditIcon } from "@gaiaprotocol/svg-icons";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import BasenameSelectorModal from "./basename/BasenameSelectorModal.js";
