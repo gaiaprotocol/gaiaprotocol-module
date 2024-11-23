@@ -133,11 +133,17 @@ export default class PersonaForm extends DomNode {
       maxSize,
       maxSize,
     );
-    return await GaiaProtocolConfig.supabaseConnector.uploadPublicFile(
-      "avatars",
-      this.walletAddress,
-      optimized,
-    );
+
+    const formData = new FormData();
+    formData.append("file", optimized);
+
+    const filePath = await GaiaProtocolConfig.supabaseConnector
+      .callEdgeFunction(
+        "upload-profile-image",
+        formData,
+      );
+
+    return `https://storage.googleapis.com/gaiaprotocol/profile_images/${filePath}`;
   }
 
   private async uploadImage(file: File) {
