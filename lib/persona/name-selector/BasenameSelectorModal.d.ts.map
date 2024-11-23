@@ -1,0 +1,1 @@
+{"version":3,"file":"BasenameSelectorModal.d.ts","sourceRoot":"","sources":["../../../src/persona/name-selector/BasenameSelectorModal.ts"],"names":[],"mappings":"AAEA,OAAO,iBAAiB,MAAM,wBAAwB,CAAC;AAEvD,MAAM,CAAC,OAAO,OAAO,qBAAsB,SAAQ,iBAAiB;gBACtD,QAAQ,EAAE,CAAC,IAAI,EAAE,MAAM,KAAK,OAAO,CAAC,IAAI,CAAC,GAAG,IAAI;IAK/C,QAAQ,IAAI,OAAO,CAAC,IAAI,CAAC;CAqBvC"}

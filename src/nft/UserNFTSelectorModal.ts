@@ -7,7 +7,7 @@ export default class UserNFTSelectorModal extends StructuredModal {
   private nftSelector: UserNFTSelector;
   private useAsProfileButton: Button;
 
-  constructor(onSelected: (nft: OpenSeaNFTData) => Promise<void> | void) {
+  constructor(onSelect: (nft: OpenSeaNFTData) => Promise<void> | void) {
     super(".user-nft-selector-modal");
     this
       .appendToHeader(el("h1", "Choose NFT for Profile"))
@@ -26,7 +26,7 @@ export default class UserNFTSelectorModal extends StructuredModal {
           onClick: async () => {
             const nft = this.nftSelector.getSelectedNFT();
             if (nft) {
-              await onSelected(nft);
+              await onSelect(nft);
               this.remove();
             }
           },

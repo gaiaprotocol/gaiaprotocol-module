@@ -7,7 +7,7 @@ import { DeleteIcon, ImageIcon, NFTIcon } from "@gaiaprotocol/svg-icons";
 
 interface ProfileImageSourceSelectMenuOptions {
   imageExists: boolean;
-  onSelected: (source: "upload" | "nft") => void;
+  onSelect: (source: "upload" | "nft") => void;
   onDeleted: () => void;
 }
 
@@ -24,7 +24,7 @@ export default class ProfileImageSourceSelectMenu extends DropdownMenu {
           icon: new ImageIcon(),
           label: "Upload image",
           onClick: () => {
-            options.onSelected("upload");
+            options.onSelect("upload");
             this.remove();
           },
         }),
@@ -32,7 +32,7 @@ export default class ProfileImageSourceSelectMenu extends DropdownMenu {
           icon: new NFTIcon(),
           label: "Select from NFTs",
           onClick: () => {
-            options.onSelected("nft");
+            options.onSelect("nft");
             this.remove();
           },
         }),

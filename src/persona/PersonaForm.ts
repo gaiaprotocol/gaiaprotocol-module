@@ -10,19 +10,23 @@ import { EditIcon } from "@gaiaprotocol/svg-icons";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import UserNFTSelectorModal from "../nft/UserNFTSelectorModal.js";
 import OpenSeaNFTData from "../opensea/OpenSeaNFTData.js";
-import BasenameSelectorModal from "./basename/BasenameSelectorModal.js";
-import ENSSelectorModal from "./ens/ENSNameSelectorModal.js";
-import GaiaNameSelectorModal from "./gaia-name/GaiaNameSelectorModal.js";
 import PersonaAvatar from "./PersonaAvatar.js";
 import PersonaEntity from "./PersonaEntity.js";
 import PersonaUtils from "./PersonaUtils.js";
 import ProfileImageSourceSelectMenu from "./ProfileImageSourceSelectMenu.js";
+import BasenameSelectorModal from "./name-selector/BasenameSelectorModal.js";
+import ENSNameSelectorModal from "./name-selector/ENSNameSelectorModal.js";
+import GaiaNameSelectorModal from "./name-selector/GaiaNameSelectorModal.js";
 
 export default class PersonaForm extends DomNode {
   private personaData: PersonaEntity;
 
   private avatar: PersonaAvatar;
   private invisibleFileInput: InvisibleFileInput;
+  private nameInput: Input;
+  private ensNameButton: Button;
+  private basenameButton: Button;
+  private gaiaNameButton: Button;
 
   constructor(walletAddress: string, existingPersona?: PersonaEntity) {
     super(".persona-form");
@@ -56,7 +60,7 @@ export default class PersonaForm extends DomNode {
               event.clientY,
               {
                 imageExists: !!this.personaData.profile_image_url,
-                onSelected: (source) => {
+                onSelect: (source) => {
                   if (source === "upload") {
                     this.invisibleFileInput.openFileSelector();
                   } else if (source === "nft") {
@@ -85,35 +89,53 @@ export default class PersonaForm extends DomNode {
       ),
       el(
         ".display-name-input-container",
-        new Input({
+        this.nameInput = new Input({
           label: "Display name",
           placeholder: "Enter display name",
-          value: existingPersona?.name,
+          value: this.personaData?.name,
+          onClick: (input) => {
+            if (input.readOnly) this.clearName();
+          },
         }),
         el(
           ".select-name-buttons",
-          new Button(
-            `.ens-name${existingPersona?.is_ens_name ? ".selected" : ""}`,
+          this.ensNameButton = new Button(
+            `.ens-name${this.personaData?.is_ens_name ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
               title: "Use ENS Name",
-              onClick: () => new ENSSelectorModal(),
+              onClick: () =>
+                this.personaData?.is_ens_name
+                  ? undefined
+                  : new ENSNameSelectorModal((name) =>
+                    this.selectENSName(name)
+                  ),
             },
           ),
-          new Button(
-            `.basename${existingPersona?.is_basename ? ".selected" : ""}`,
+          this.basenameButton = new Button(
+            `.basename${this.personaData?.is_basename ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
               title: "Use Basename",
-              onClick: () => new BasenameSelectorModal(),
+              onClick: () =>
+                this.personaData?.is_basename
+                  ? undefined
+                  : new BasenameSelectorModal((name) =>
+                    this.selectBasename(name)
+                  ),
             },
           ),
-          new Button(
-            `.gaia-name${existingPersona?.is_gaia_name ? ".selected" : ""}`,
+          this.gaiaNameButton = new Button(
+            `.gaia-name${this.personaData?.is_gaia_name ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
               title: "Use Gaia Name",
-              onClick: () => new GaiaNameSelectorModal(),
+              onClick: () =>
+                this.personaData?.is_gaia_name
+                  ? undefined
+                  : new GaiaNameSelectorModal((name) =>
+                    this.selectGaiaName(name)
+                  ),
             },
           ),
         ),
@@ -124,7 +146,7 @@ export default class PersonaForm extends DomNode {
           label: "Bio",
           placeholder: "Something about yourself",
           multiline: true,
-          value: existingPersona?.bio,
+          value: this.personaData?.bio,
         }),
       ),
     );
@@ -181,5 +203,61 @@ export default class PersonaForm extends DomNode {
     this.personaData.thumbnail_image_url = undefined;
 
     this.avatar.clear().load();
+  }
+
+  private clearName() {
+    this.personaData.name = undefined;
+    this.personaData.is_ens_name = undefined;
+    this.personaData.is_basename = undefined;
+    this.personaData.is_gaia_name = undefined;
+
+    this.nameInput.value = "";
+    this.nameInput.readOnly = false;
+
+    this.ensNameButton.removeClass("selected");
+    this.basenameButton.removeClass("selected");
+    this.gaiaNameButton.removeClass("selected");
+  }
+
+  private selectENSName(name: string) {
+    this.personaData.name = name;
+    this.personaData.is_ens_name = true;
+    this.personaData.is_basename = undefined;
+    this.personaData.is_gaia_name = undefined;
+
+    this.nameInput.value = name;
+    this.nameInput.readOnly = true;
+
+    this.ensNameButton.addClass("selected");
+    this.basenameButton.removeClass("selected");
+    this.gaiaNameButton.removeClass("selected");
+  }
+
+  private selectBasename(name: string) {
+    this.personaData.name = name;
+    this.personaData.is_ens_name = undefined;
+    this.personaData.is_basename = true;
+    this.personaData.is_gaia_name = undefined;
+
+    this.nameInput.value = name;
+    this.nameInput.readOnly = true;
+
+    this.ensNameButton.removeClass("selected");
+    this.basenameButton.addClass("selected");
+    this.gaiaNameButton.removeClass("selected");
+  }
+
+  private selectGaiaName(name: string) {
+    this.personaData.name = name;
+    this.personaData.is_ens_name = undefined;
+    this.personaData.is_basename = undefined;
+    this.personaData.is_gaia_name = true;
+
+    this.nameInput.value = name;
+    this.nameInput.readOnly = true;
+
+    this.ensNameButton.removeClass("selected");
+    this.basenameButton.removeClass("selected");
+    this.gaiaNameButton.addClass("selected");
   }
 }

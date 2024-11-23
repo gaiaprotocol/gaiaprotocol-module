@@ -1,7 +1,7 @@
 import { DropdownMenu } from "@common-module/app-components";
 interface ProfileImageSourceSelectMenuOptions {
     imageExists: boolean;
-    onSelected: (source: "upload" | "nft") => void;
+    onSelect: (source: "upload" | "nft") => void;
     onDeleted: () => void;
 }
 export default class ProfileImageSourceSelectMenu extends DropdownMenu {

@@ -3,6 +3,6 @@ import OpenSeaNFTData from "../opensea/OpenSeaNFTData.js";
 export default class UserNFTSelectorModal extends StructuredModal {
     private nftSelector;
     private useAsProfileButton;
-    constructor(onSelected: (nft: OpenSeaNFTData) => Promise<void> | void);
+    constructor(onSelect: (nft: OpenSeaNFTData) => Promise<void> | void);
 }
 //# sourceMappingURL=UserNFTSelectorModal.d.ts.map
