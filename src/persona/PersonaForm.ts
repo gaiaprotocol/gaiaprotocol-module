@@ -8,24 +8,31 @@ import {
 import { AddressUtils } from "@common-module/wallet-utils";
 import { EditIcon } from "@gaiaprotocol/svg-icons";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
+import UserNFTSelectorModal from "../nft/UserNFTSelectorModal.js";
+import OpenSeaNFTData from "../opensea/OpenSeaNFTData.js";
 import BasenameSelectorModal from "./basename/BasenameSelectorModal.js";
 import ENSSelectorModal from "./ens/ENSNameSelectorModal.js";
 import GaiaNameSelectorModal from "./gaia-name/GaiaNameSelectorModal.js";
-import NFTSelectorModal from "./nft/NFTSelectorModal.js";
 import PersonaAvatar from "./PersonaAvatar.js";
 import PersonaEntity from "./PersonaEntity.js";
 import PersonaUtils from "./PersonaUtils.js";
 import ProfileImageSourceSelectMenu from "./ProfileImageSourceSelectMenu.js";
 
 export default class PersonaForm extends DomNode {
+  private personaData: PersonaEntity;
+
   private avatar: PersonaAvatar;
   private invisibleFileInput: InvisibleFileInput;
 
-  private profileImageUrl?: string;
-  private thumbnailImageUrl?: string;
-
-  constructor(private walletAddress: string, existingPersona?: PersonaEntity) {
+  constructor(walletAddress: string, existingPersona?: PersonaEntity) {
     super(".persona-form");
+
+    if (existingPersona) {
+      this.personaData = existingPersona;
+    } else {
+      this.personaData = { wallet_address: walletAddress };
+    }
+
     this.append(
       el(
         ".avatar",
@@ -48,19 +55,15 @@ export default class PersonaForm extends DomNode {
               event.clientX,
               event.clientY,
               {
-                imageExists: !!this.profileImageUrl,
+                imageExists: !!this.personaData.profile_image_url,
                 onSelected: (source) => {
                   if (source === "upload") {
                     this.invisibleFileInput.openFileSelector();
                   } else if (source === "nft") {
-                    new NFTSelectorModal();
+                    new UserNFTSelectorModal((nft) => this.setNFTAsAvatar(nft));
                   }
                 },
-                onDeleted: () => {
-                  this.profileImageUrl = undefined;
-                  this.thumbnailImageUrl = undefined;
-                  this.avatar.clear().load();
-                },
+                onDeleted: () => this.clearAvatar(),
               },
             );
           },
@@ -68,7 +71,7 @@ export default class PersonaForm extends DomNode {
         this.invisibleFileInput = new InvisibleFileInput({
           accept: "image/*",
           onChange: (files) => {
-            if (files.length > 0) this.uploadImage(files[0]);
+            if (files.length > 0) this.uploadProfileImage(files[0]);
           },
         }),
       ),
@@ -146,7 +149,7 @@ export default class PersonaForm extends DomNode {
     return `https://storage.googleapis.com/gaiaprotocol/profile_images/${filePath}`;
   }
 
-  private async uploadImage(file: File) {
+  private async uploadProfileImage(file: File) {
     this.avatar.clear().showLoading();
 
     const [optimizedImageUrl, thumbnailImageUrl] = await Promise.all([
@@ -154,11 +157,29 @@ export default class PersonaForm extends DomNode {
       this.optimizeAndUploadImage(file, 120),
     ]);
 
-    this.profileImageUrl = optimizedImageUrl;
-    this.thumbnailImageUrl = thumbnailImageUrl;
+    this.personaData.profile_image_url = optimizedImageUrl;
+    this.personaData.thumbnail_image_url = thumbnailImageUrl;
 
     this.avatar.hideLoading();
-
     this.avatar.imageSrc = optimizedImageUrl;
+  }
+
+  private setNFTAsAvatar(nft: OpenSeaNFTData) {
+    this.personaData.profile_image_url = nft.image_url;
+    this.personaData.thumbnail_image_url = nft.display_image_url;
+
+    const imageSrc = nft.display_image_url ?? nft.image_url;
+    if (imageSrc) {
+      this.avatar.imageSrc = imageSrc;
+    } else {
+      this.avatar.clear().load();
+    }
+  }
+
+  private clearAvatar() {
+    this.personaData.profile_image_url = undefined;
+    this.personaData.thumbnail_image_url = undefined;
+
+    this.avatar.clear().load();
   }
 }

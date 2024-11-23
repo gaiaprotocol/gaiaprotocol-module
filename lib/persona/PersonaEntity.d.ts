@@ -5,6 +5,7 @@ export default interface PersonaEntity {
     is_basename?: boolean;
     is_gaia_name?: boolean;
     profile_image_url?: string;
+    thumbnail_image_url?: string;
     nft_address?: string;
     nft_token_id?: string;
     bio?: string;
