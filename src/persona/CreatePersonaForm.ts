@@ -3,17 +3,21 @@ import { Button, ButtonType } from "@common-module/app-components";
 import PersonaForm from "./PersonaForm.js";
 
 export default class CreatePersonaForm extends DomNode {
+  private form: PersonaForm;
+  private createButton: Button;
+
   constructor(walletAddress: string) {
     super("form.create-persona-form");
+
     this.append(
       el("header", el("h2", "Complete your persona")),
       el(
         "main",
-        new PersonaForm(walletAddress),
+        this.form = new PersonaForm(walletAddress),
       ),
       el(
         "footer",
-        new Button({
+        this.createButton = new Button({
           type: ButtonType.Contained,
           title: "Create persona",
         }),
@@ -24,5 +28,9 @@ export default class CreatePersonaForm extends DomNode {
         },
       },
     );
+
+    this.form.on("dataChanged", (data) => {
+      console.log(data);
+    });
   }
 }

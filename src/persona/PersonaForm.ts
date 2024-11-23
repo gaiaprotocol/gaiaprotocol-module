@@ -18,8 +18,10 @@ import BasenameSelectorModal from "./name-selector/BasenameSelectorModal.js";
 import ENSNameSelectorModal from "./name-selector/ENSNameSelectorModal.js";
 import GaiaNameSelectorModal from "./name-selector/GaiaNameSelectorModal.js";
 
-export default class PersonaForm extends DomNode {
-  private personaData: PersonaEntity;
+export default class PersonaForm extends DomNode<HTMLDivElement, {
+  dataChanged: (data: PersonaEntity) => void;
+}> {
+  private data: PersonaEntity;
 
   private avatar: PersonaAvatar;
   private invisibleFileInput: InvisibleFileInput;
@@ -32,9 +34,9 @@ export default class PersonaForm extends DomNode {
     super(".persona-form");
 
     if (existingPersona) {
-      this.personaData = existingPersona;
+      this.data = existingPersona;
     } else {
-      this.personaData = { wallet_address: walletAddress };
+      this.data = { wallet_address: walletAddress };
     }
 
     this.append(
@@ -59,7 +61,7 @@ export default class PersonaForm extends DomNode {
               event.clientX,
               event.clientY,
               {
-                imageExists: !!this.personaData.profile_image_url,
+                imageExists: !!this.data.profile_image_url,
                 onSelect: (source) => {
                   if (source === "upload") {
                     this.invisibleFileInput.openFileSelector();
@@ -92,7 +94,11 @@ export default class PersonaForm extends DomNode {
         this.nameInput = new Input({
           label: "Display name",
           placeholder: "Enter display name",
-          value: this.personaData?.name,
+          value: this.data?.name,
+          onChange: (newValue) => {
+            this.data.name = newValue;
+            this.emit("dataChanged", this.data);
+          },
           onClick: (input) => {
             if (input.readOnly) this.clearName();
           },
@@ -100,12 +106,12 @@ export default class PersonaForm extends DomNode {
         el(
           ".select-name-buttons",
           this.ensNameButton = new Button(
-            `.ens-name${this.personaData?.is_ens_name ? ".selected" : ""}`,
+            `.ens-name${this.data?.is_ens_name ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
               title: "Use ENS Name",
               onClick: () =>
-                this.personaData?.is_ens_name
+                this.data?.is_ens_name
                   ? undefined
                   : new ENSNameSelectorModal((name) =>
                     this.selectENSName(name)
@@ -113,12 +119,12 @@ export default class PersonaForm extends DomNode {
             },
           ),
           this.basenameButton = new Button(
-            `.basename${this.personaData?.is_basename ? ".selected" : ""}`,
+            `.basename${this.data?.is_basename ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
               title: "Use Basename",
               onClick: () =>
-                this.personaData?.is_basename
+                this.data?.is_basename
                   ? undefined
                   : new BasenameSelectorModal((name) =>
                     this.selectBasename(name)
@@ -126,12 +132,12 @@ export default class PersonaForm extends DomNode {
             },
           ),
           this.gaiaNameButton = new Button(
-            `.gaia-name${this.personaData?.is_gaia_name ? ".selected" : ""}`,
+            `.gaia-name${this.data?.is_gaia_name ? ".selected" : ""}`,
             {
               type: ButtonType.Outlined,
               title: "Use Gaia Name",
               onClick: () =>
-                this.personaData?.is_gaia_name
+                this.data?.is_gaia_name
                   ? undefined
                   : new GaiaNameSelectorModal((name) =>
                     this.selectGaiaName(name)
@@ -146,7 +152,11 @@ export default class PersonaForm extends DomNode {
           label: "Bio",
           placeholder: "Something about yourself",
           multiline: true,
-          value: this.personaData?.bio,
+          value: this.data?.bio,
+          onChange: (newValue) => {
+            this.data.name = newValue;
+            this.emit("dataChanged", this.data);
+          },
         }),
       ),
     );
@@ -179,16 +189,18 @@ export default class PersonaForm extends DomNode {
       this.optimizeAndUploadImage(file, 120),
     ]);
 
-    this.personaData.profile_image_url = optimizedImageUrl;
-    this.personaData.thumbnail_image_url = thumbnailImageUrl;
+    this.data.profile_image_url = optimizedImageUrl;
+    this.data.thumbnail_image_url = thumbnailImageUrl;
+    this.emit("dataChanged", this.data);
 
     this.avatar.hideLoading();
     this.avatar.imageSrc = optimizedImageUrl;
   }
 
   private setNFTAsAvatar(nft: OpenSeaNFTData) {
-    this.personaData.profile_image_url = nft.image_url;
-    this.personaData.thumbnail_image_url = nft.display_image_url;
+    this.data.profile_image_url = nft.image_url;
+    this.data.thumbnail_image_url = nft.display_image_url;
+    this.emit("dataChanged", this.data);
 
     const imageSrc = nft.display_image_url ?? nft.image_url;
     if (imageSrc) {
@@ -199,17 +211,19 @@ export default class PersonaForm extends DomNode {
   }
 
   private clearAvatar() {
-    this.personaData.profile_image_url = undefined;
-    this.personaData.thumbnail_image_url = undefined;
+    this.data.profile_image_url = undefined;
+    this.data.thumbnail_image_url = undefined;
+    this.emit("dataChanged", this.data);
 
     this.avatar.clear().load();
   }
 
   private clearName() {
-    this.personaData.name = undefined;
-    this.personaData.is_ens_name = undefined;
-    this.personaData.is_basename = undefined;
-    this.personaData.is_gaia_name = undefined;
+    this.data.name = undefined;
+    this.data.is_ens_name = undefined;
+    this.data.is_basename = undefined;
+    this.data.is_gaia_name = undefined;
+    this.emit("dataChanged", this.data);
 
     this.nameInput.value = "";
     this.nameInput.readOnly = false;
@@ -220,10 +234,11 @@ export default class PersonaForm extends DomNode {
   }
 
   private selectENSName(name: string) {
-    this.personaData.name = name;
-    this.personaData.is_ens_name = true;
-    this.personaData.is_basename = undefined;
-    this.personaData.is_gaia_name = undefined;
+    this.data.name = name;
+    this.data.is_ens_name = true;
+    this.data.is_basename = undefined;
+    this.data.is_gaia_name = undefined;
+    this.emit("dataChanged", this.data);
 
     this.nameInput.value = name;
     this.nameInput.readOnly = true;
@@ -234,10 +249,11 @@ export default class PersonaForm extends DomNode {
   }
 
   private selectBasename(name: string) {
-    this.personaData.name = name;
-    this.personaData.is_ens_name = undefined;
-    this.personaData.is_basename = true;
-    this.personaData.is_gaia_name = undefined;
+    this.data.name = name;
+    this.data.is_ens_name = undefined;
+    this.data.is_basename = true;
+    this.data.is_gaia_name = undefined;
+    this.emit("dataChanged", this.data);
 
     this.nameInput.value = name;
     this.nameInput.readOnly = true;
@@ -248,10 +264,11 @@ export default class PersonaForm extends DomNode {
   }
 
   private selectGaiaName(name: string) {
-    this.personaData.name = name;
-    this.personaData.is_ens_name = undefined;
-    this.personaData.is_basename = undefined;
-    this.personaData.is_gaia_name = true;
+    this.data.name = name;
+    this.data.is_ens_name = undefined;
+    this.data.is_basename = undefined;
+    this.data.is_gaia_name = true;
+    this.emit("dataChanged", this.data);
 
     this.nameInput.value = name;
     this.nameInput.readOnly = true;

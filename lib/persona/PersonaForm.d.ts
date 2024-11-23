@@ -1,7 +1,9 @@
 import { DomNode } from "@common-module/app";
 import PersonaEntity from "./PersonaEntity.js";
-export default class PersonaForm extends DomNode {
-    private personaData;
+export default class PersonaForm extends DomNode<HTMLDivElement, {
+    dataChanged: (data: PersonaEntity) => void;
+}> {
+    private data;
     private avatar;
     private invisibleFileInput;
     private nameInput;
