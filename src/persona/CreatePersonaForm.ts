@@ -1,13 +1,14 @@
-import { DomNode, el, Router } from "@common-module/app";
+import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
+import PersonaEntity from "./PersonaEntity.js";
 import PersonaForm from "./PersonaForm.js";
 
 export default class CreatePersonaForm extends DomNode {
   private form: PersonaForm;
 
-  constructor() {
+  constructor(private onSaved: (data: PersonaEntity) => void) {
     super("form.create-persona-form");
 
     const walletAddress = WalletLoginManager.getLoggedInAddress();
@@ -36,10 +37,14 @@ export default class CreatePersonaForm extends DomNode {
   }
 
   private async savePersona(): Promise<void> {
+    const data = this.form.data;
+
     await GaiaProtocolConfig.supabaseConnector.callEdgeFunction(
       "save-persona",
-      this.form.data,
+      data,
     );
-    Router.go(`/${WalletLoginManager.getLoggedInAddress()}`);
+
+    data.created_at = new Date().toISOString();
+    this.onSaved(data);
   }
 }

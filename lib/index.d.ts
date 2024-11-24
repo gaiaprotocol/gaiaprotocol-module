@@ -5,4 +5,6 @@ export { default as NFTList } from "./nft/NFTList.js";
 export { default as OpenSeaNFTData } from "./opensea/OpenSeaNFTData.js";
 export { default as CreatePersonaForm } from "./persona/CreatePersonaForm.js";
 export { default as PersonaDisplay } from "./persona/PersonaDisplay.js";
+export { default as PersonaEntity } from "./persona/PersonaEntity.js";
+export { default as PersonaRepository } from "./persona/PersonaRepository.js";
 //# sourceMappingURL=index.d.ts.map

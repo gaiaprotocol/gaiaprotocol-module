@@ -1,7 +1,6 @@
 import { DomNode } from "@common-module/app";
+import PersonaEntity from "./PersonaEntity.js";
 export default class PersonaDisplay extends DomNode {
-    private walletAddress;
-    constructor(walletAddress: string);
-    private loadPersona;
+    constructor(persona: PersonaEntity);
 }
 //# sourceMappingURL=PersonaDisplay.d.ts.map

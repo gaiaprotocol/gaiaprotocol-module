@@ -1,15 +1,9 @@
 import { DomNode } from "@common-module/app";
-import PersonaRepository from "./PersonaRepository.js";
+import PersonaEntity from "./PersonaEntity.js";
 
 export default class PersonaDisplay extends DomNode {
-  constructor(private walletAddress: string) {
+  constructor(persona: PersonaEntity) {
     super(".persona-display");
-    this.append("Persona display for wallet address: ", walletAddress);
-    this.loadPersona();
-  }
-
-  private async loadPersona() {
-    const persona = await PersonaRepository.fetchPersona(this.walletAddress);
-    console.log(persona);
+    this.append(JSON.stringify(persona));
   }
 }

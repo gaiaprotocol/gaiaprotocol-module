@@ -1,1 +1,1 @@
-{"version":3,"file":"PersonaDisplay.d.ts","sourceRoot":"","sources":["../../src/persona/PersonaDisplay.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAG7C,MAAM,CAAC,OAAO,OAAO,cAAe,SAAQ,OAAO;IACrC,OAAO,CAAC,aAAa;gBAAb,aAAa,EAAE,MAAM;YAM3B,WAAW;CAI1B"}
+{"version":3,"file":"PersonaDisplay.d.ts","sourceRoot":"","sources":["../../src/persona/PersonaDisplay.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAC7C,OAAO,aAAa,MAAM,oBAAoB,CAAC;AAE/C,MAAM,CAAC,OAAO,OAAO,cAAe,SAAQ,OAAO;gBACrC,OAAO,EAAE,aAAa;CAInC"}
