@@ -1,6 +1,9 @@
 import { DomNode } from "@common-module/app";
-import Persona from "./Persona.js";
+import PersonaEntity from "./PersonaEntity.js";
 export default class EditPersonaForm extends DomNode {
-    constructor(persona?: Persona);
+    private onSaved;
+    private form;
+    constructor(oldPersona: PersonaEntity, onSaved: (data: PersonaEntity) => void);
+    private savePersona;
 }
 //# sourceMappingURL=EditPersonaForm.d.ts.map

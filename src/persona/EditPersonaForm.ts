@@ -1,29 +1,33 @@
 import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
+import { WalletLoginManager } from "@common-module/wallet-login";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import PersonaEntity from "./PersonaEntity.js";
 import PersonaForm from "./PersonaForm.js";
 
-export default class CreatePersonaForm extends DomNode {
+export default class EditPersonaForm extends DomNode {
   private form: PersonaForm;
 
   constructor(
-    walletAddress: string,
+    oldPersona: PersonaEntity,
     private onSaved: (data: PersonaEntity) => void,
   ) {
-    super(".create-persona-form");
+    super(".edit-persona-form");
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) throw new Error("No wallet address found");
 
     this.append(
-      el("header", el("h2", "Complete your persona")),
+      el("header", el("h2", "Edit your persona")),
       el(
         "main",
-        this.form = new PersonaForm({ wallet_address: walletAddress }),
+        this.form = new PersonaForm(oldPersona),
       ),
       el(
         "footer",
         new Button({
           type: ButtonType.Contained,
-          title: "Create persona",
+          title: "Save persona",
           onClick: () => this.savePersona(),
         }),
       ),

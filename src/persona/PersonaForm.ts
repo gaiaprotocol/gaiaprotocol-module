@@ -5,7 +5,6 @@ import {
   Input,
   InvisibleFileInput,
 } from "@common-module/app-components";
-import { AddressUtils } from "@common-module/wallet-utils";
 import { EditIcon } from "@gaiaprotocol/svg-icons";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import UserNFTSelectorModal from "../nft/UserNFTSelectorModal.js";
@@ -21,8 +20,6 @@ import GaiaNameSelectorModal from "./name-selector/GaiaNameSelectorModal.js";
 export default class PersonaForm extends DomNode<HTMLDivElement, {
   dataChanged: (data: PersonaEntity) => void;
 }> {
-  public data: PersonaEntity;
-
   private avatar: PersonaAvatar;
   private invisibleFileInput: InvisibleFileInput;
   private nameInput: Input;
@@ -30,26 +27,14 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
   private basenameButton: Button;
   private gaiaNameButton: Button;
 
-  constructor(walletAddress: string, existingPersona?: PersonaEntity) {
+  constructor(public data: PersonaEntity) {
     super(".persona-form");
-
-    if (existingPersona) {
-      this.data = existingPersona;
-    } else {
-      this.data = { wallet_address: walletAddress };
-    }
 
     this.append(
       el(
         ".avatar",
         this.avatar = new PersonaAvatar(
-          existingPersona
-            ? PersonaUtils.convertPersonaToSocialUser(existingPersona)
-            : {
-              id: walletAddress,
-              name: AddressUtils.shortenAddress(walletAddress),
-              username: AddressUtils.shortenAddress(walletAddress),
-            },
+          PersonaUtils.convertPersonaToSocialUser(data),
           120,
         ),
         new Button(".edit", {
@@ -85,7 +70,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
         ".wallet-address-input-container",
         new Input({
           label: "Wallet address",
-          value: walletAddress,
+          value: data.wallet_address,
           readOnly: true,
         }),
       ),

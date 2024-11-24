@@ -10,7 +10,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     private ensNameButton;
     private basenameButton;
     private gaiaNameButton;
-    constructor(walletAddress: string, existingPersona?: PersonaEntity);
+    constructor(data: PersonaEntity);
     private optimizeAndUploadImage;
     private uploadProfileImage;
     private setNFTAsAvatar;
