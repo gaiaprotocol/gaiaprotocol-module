@@ -23,21 +23,21 @@ export default class PersonaDisplay extends DomNode {
       el(
         "header",
         el(
-          ".user-info",
-          el(
-            ".avatar-container",
-            new PersonaAvatar(
-              PersonaUtils.convertPersonaToSocialUser(options.persona),
-              100,
-            ),
+          ".avatar-container",
+          new PersonaAvatar(
+            PersonaUtils.convertPersonaToSocialUser(options.persona),
+            100,
           ),
+        ),
+        el(
+          ".content",
           el(
-            ".info-container",
+            ".user-info",
             el(
               ".name-and-wallet-address",
-              el("h1", options.persona.name),
+              el("h2.name", options.persona.name),
               el(
-                "p",
+                "p.wallet-address",
                 el(
                   "a",
                   AddressUtils.shortenAddress(options.persona.wallet_address),
@@ -57,7 +57,7 @@ export default class PersonaDisplay extends DomNode {
               ),
             ),
             el(
-              ".pc-buttons",
+              ".pc-button-container",
               options.showEditButton
                 ? new Button({
                   type: ButtonType.Contained,
@@ -68,16 +68,16 @@ export default class PersonaDisplay extends DomNode {
             ),
           ),
         ),
-        el(
-          ".mobile-buttons",
-          options.showEditButton
-            ? new Button({
-              type: ButtonType.Contained,
-              title: "Edit",
-              onClick: () => options.onEditClick(),
-            })
-            : undefined,
-        ),
+      ),
+      el(
+        ".mobile-button-container",
+        options.showEditButton
+          ? new Button({
+            type: ButtonType.Contained,
+            title: "Edit",
+            onClick: () => options.onEditClick(),
+          })
+          : undefined,
       ),
     );
   }
