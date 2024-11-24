@@ -3,7 +3,7 @@ import PersonaEntity from "./PersonaEntity.js";
 export default class PersonaForm extends DomNode<HTMLDivElement, {
     dataChanged: (data: PersonaEntity) => void;
 }> {
-    private data;
+    data: PersonaEntity;
     private avatar;
     private invisibleFileInput;
     private nameInput;

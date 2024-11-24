@@ -21,7 +21,7 @@ import GaiaNameSelectorModal from "./name-selector/GaiaNameSelectorModal.js";
 export default class PersonaForm extends DomNode<HTMLDivElement, {
   dataChanged: (data: PersonaEntity) => void;
 }> {
-  private data: PersonaEntity;
+  public data: PersonaEntity;
 
   private avatar: PersonaAvatar;
   private invisibleFileInput: InvisibleFileInput;

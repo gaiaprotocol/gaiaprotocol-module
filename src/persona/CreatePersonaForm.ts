@@ -1,13 +1,17 @@
-import { DomNode, el } from "@common-module/app";
+import { DomNode, el, Router } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
+import { WalletLoginManager } from "@common-module/wallet-login";
+import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 import PersonaForm from "./PersonaForm.js";
 
 export default class CreatePersonaForm extends DomNode {
   private form: PersonaForm;
-  private createButton: Button;
 
-  constructor(walletAddress: string) {
+  constructor() {
     super("form.create-persona-form");
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) throw new Error("No wallet address found");
 
     this.append(
       el("header", el("h2", "Complete your persona")),
@@ -17,9 +21,10 @@ export default class CreatePersonaForm extends DomNode {
       ),
       el(
         "footer",
-        this.createButton = new Button({
+        new Button({
           type: ButtonType.Contained,
           title: "Create persona",
+          onClick: () => this.savePersona(),
         }),
       ),
       {
@@ -28,9 +33,13 @@ export default class CreatePersonaForm extends DomNode {
         },
       },
     );
+  }
 
-    this.form.on("dataChanged", (data) => {
-      console.log(data);
-    });
+  private async savePersona(): Promise<void> {
+    await GaiaProtocolConfig.supabaseConnector.callEdgeFunction(
+      "save-persona",
+      this.form.data,
+    );
+    Router.go(`/${WalletLoginManager.getLoggedInAddress()}`);
   }
 }
