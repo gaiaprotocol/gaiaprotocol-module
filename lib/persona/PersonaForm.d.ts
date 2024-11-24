@@ -4,6 +4,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     dataChanged: (data: PersonaEntity) => void;
 }> {
     data: PersonaEntity;
+    private avatarContainer;
     private avatar;
     private invisibleFileInput;
     private nameInput;

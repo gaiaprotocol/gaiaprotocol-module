@@ -1,5 +1,6 @@
 import { DomNode, el, ImageOptimizer } from "@common-module/app";
 import {
+  AppCompConfig,
   Button,
   ButtonType,
   Input,
@@ -20,6 +21,7 @@ import GaiaNameSelectorModal from "./name-selector/GaiaNameSelectorModal.js";
 export default class PersonaForm extends DomNode<HTMLDivElement, {
   dataChanged: (data: PersonaEntity) => void;
 }> {
+  private avatarContainer: DomNode;
   private avatar: PersonaAvatar;
   private invisibleFileInput: InvisibleFileInput;
   private nameInput: Input;
@@ -31,8 +33,8 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     super(".persona-form");
 
     this.append(
-      el(
-        ".avatar",
+      this.avatarContainer = el(
+        ".avatar-container",
         this.avatar = new PersonaAvatar(
           PersonaUtils.convertPersonaToSocialUser(data),
           120,
@@ -167,7 +169,9 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
   }
 
   private async uploadProfileImage(file: File) {
-    this.avatar.clear().showLoading();
+    const loadingSpinner = new AppCompConfig.LoadingSpinner().appendTo(
+      this.avatarContainer,
+    );
 
     const [optimizedImageUrl, thumbnailImageUrl] = await Promise.all([
       this.optimizeAndUploadImage(file, 1024),
@@ -178,8 +182,9 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     this.data.thumbnail_image_url = thumbnailImageUrl;
     this.emit("dataChanged", this.data);
 
-    this.avatar.hideLoading();
-    this.avatar.imageSrc = optimizedImageUrl;
+    this.avatar.setImage(optimizedImageUrl, false);
+
+    loadingSpinner.remove();
   }
 
   private setNFTAsAvatar(nft: OpenSeaNFTData) {
@@ -188,11 +193,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     this.emit("dataChanged", this.data);
 
     const imageSrc = nft.display_image_url ?? nft.image_url;
-    if (imageSrc) {
-      this.avatar.imageSrc = imageSrc;
-    } else {
-      this.avatar.clear().load();
-    }
+    if (imageSrc) this.avatar.setImage(imageSrc, true);
   }
 
   private clearAvatar() {
@@ -200,7 +201,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     this.data.thumbnail_image_url = undefined;
     this.emit("dataChanged", this.data);
 
-    this.avatar.clear().load();
+    this.avatar.clearImage();
   }
 
   private clearName() {

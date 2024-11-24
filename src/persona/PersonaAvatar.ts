@@ -1,40 +1,26 @@
 import { DomNode, el } from "@common-module/app";
-import { AppCompConfig } from "@common-module/app-components";
 import { User } from "@common-module/social-components";
 import { WalletAvatar } from "@common-module/wallet";
 
 export default class PersonaAvatar extends DomNode {
-  private loadingSpinner?: DomNode;
-
   constructor(private user: User, private size: number = 32) {
-    super(".persona-avatar");
-    this.load();
+    super(".persona-avatar.avatar");
+    this.style({ width: `${size}px`, height: `${size}px` });
+    this.clearImage();
   }
 
-  public async load(): Promise<void> {
-    this.showLoading();
+  public clearImage(): void {
+    this.clear();
 
-    //TODO:
-    this.clear().append(new WalletAvatar(this.user.id, { size: this.size }));
-
-    this.hideLoading();
+    if (this.user.avatarUrl) {
+      this.setImage(this.user.avatarUrl, this.user.isNftAvatar === true);
+    } else {
+      this.append(new WalletAvatar(this.user.id, { size: this.size }));
+    }
   }
 
-  public set imageSrc(src: string) {
-    this.clear().showLoading();
-    this.append(el("img", {
-      src,
-      onload: () => this.hideLoading(),
-    }));
-  }
-
-  public showLoading(): void {
-    if (this.loadingSpinner) return;
-    this.loadingSpinner = new AppCompConfig.LoadingSpinner().appendTo(this);
-    this.loadingSpinner.on("remove", () => this.loadingSpinner = undefined);
-  }
-
-  public hideLoading(): void {
-    this.loadingSpinner?.remove();
+  public setImage(src: string, isNFT: boolean): void {
+    isNFT ? this.addClass("nft") : this.removeClass("nft");
+    this.append(el("img", { src }));
   }
 }

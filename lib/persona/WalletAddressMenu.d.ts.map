@@ -1,0 +1,1 @@
+{"version":3,"file":"WalletAddressMenu.d.ts","sourceRoot":"","sources":["../../src/persona/WalletAddressMenu.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,YAAY,EAIb,MAAM,+BAA+B,CAAC;AAGvC,MAAM,CAAC,OAAO,OAAO,iBAAkB,SAAQ,YAAY;gBAEvD,IAAI,EAAE,MAAM,EACZ,GAAG,EAAE,MAAM,EACX,aAAa,EAAE,MAAM;CAiBxB"}
