@@ -64,6 +64,7 @@ export default class PersonaDisplay extends DomNode {
                 : undefined,
             ),
           ),
+          el("p.bio", options.persona.bio),
         ),
       ),
       el(
