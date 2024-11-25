@@ -1,0 +1,1 @@
+{"version":3,"file":"TradePersonaFragmentButton.d.ts","sourceRoot":"","sources":["../../../src/persona/trade/TradePersonaFragmentButton.ts"],"names":[],"mappings":"AAAA,OAAO,gBAAgB,MAAM,iCAAiC,CAAC;AAE/D,MAAM,CAAC,OAAO,OAAO,0BAA2B,SAAQ,gBAAgB;IAC1D,OAAO,CAAC,aAAa;gBAAb,aAAa,EAAE,MAAM;cAIzB,WAAW,IAAI,OAAO,CAAC,OAAO,CAAC;cAI/B,QAAQ,IAAI,OAAO,CAAC,MAAM,CAAC;CAG5C"}

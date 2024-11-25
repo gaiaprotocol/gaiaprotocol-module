@@ -1,14 +1,11 @@
 import { DomNode, el } from "@common-module/app";
-import {
-  Button,
-  ButtonType,
-  DropdownMenu,
-} from "@common-module/app-components";
+import { Button, ButtonType } from "@common-module/app-components";
 import { AddressUtils } from "@common-module/wallet-utils";
 import PersonaAvatar from "./PersonaAvatar.js";
 import PersonaEntity from "./PersonaEntity.js";
 import PersonaUtils from "./PersonaUtils.js";
 import WalletAddressMenu from "./WalletAddressMenu.js";
+import TradePersonaFragmentButton from "./trade/TradePersonaFragmentButton.js";
 
 interface PersonaDisplayOptions {
   persona: PersonaEntity;
@@ -26,7 +23,6 @@ export default class PersonaDisplay extends DomNode {
           ".avatar-container",
           new PersonaAvatar(
             PersonaUtils.convertPersonaToSocialUser(options.persona),
-            100,
           ),
         ),
         el(
@@ -58,9 +54,10 @@ export default class PersonaDisplay extends DomNode {
             ),
             el(
               ".pc-button-container",
+              new TradePersonaFragmentButton(options.persona.wallet_address),
               options.showEditButton
                 ? new Button({
-                  type: ButtonType.Contained,
+                  type: ButtonType.Outlined,
                   title: "Edit",
                   onClick: () => options.onEditClick(),
                 })
@@ -71,9 +68,10 @@ export default class PersonaDisplay extends DomNode {
       ),
       el(
         ".mobile-button-container",
+        new TradePersonaFragmentButton(options.persona.wallet_address),
         options.showEditButton
           ? new Button({
-            type: ButtonType.Contained,
+            type: ButtonType.Outlined,
             title: "Edit",
             onClick: () => options.onEditClick(),
           })

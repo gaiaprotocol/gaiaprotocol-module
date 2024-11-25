@@ -7,16 +7,16 @@ import {
   InvisibleFileInput,
 } from "@common-module/app-components";
 import { EditIcon } from "@gaiaprotocol/svg-icons";
-import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
-import UserNFTSelectorModal from "../nft/UserNFTSelectorModal.js";
-import OpenSeaNFTData from "../opensea/OpenSeaNFTData.js";
-import PersonaAvatar from "./PersonaAvatar.js";
-import PersonaEntity from "./PersonaEntity.js";
-import PersonaUtils from "./PersonaUtils.js";
-import ProfileImageSourceSelectMenu from "./ProfileImageSourceSelectMenu.js";
-import BasenameSelectorModal from "./name-selector/BasenameSelectorModal.js";
-import ENSNameSelectorModal from "./name-selector/ENSNameSelectorModal.js";
-import GaiaNameSelectorModal from "./name-selector/GaiaNameSelectorModal.js";
+import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
+import UserNFTSelectorModal from "../../nft/UserNFTSelectorModal.js";
+import OpenSeaNFTData from "../../opensea/OpenSeaNFTData.js";
+import PersonaAvatar from "../PersonaAvatar.js";
+import PersonaEntity from "../PersonaEntity.js";
+import PersonaUtils from "../PersonaUtils.js";
+import ProfileImageSourceSelectMenu from "../ProfileImageSourceSelectMenu.js";
+import BasenameSelectorModal from "../name-selector/BasenameSelectorModal.js";
+import ENSNameSelectorModal from "../name-selector/ENSNameSelectorModal.js";
+import GaiaNameSelectorModal from "../name-selector/GaiaNameSelectorModal.js";
 
 export default class PersonaForm extends DomNode<HTMLDivElement, {
   dataChanged: (data: PersonaEntity) => void;
@@ -37,7 +37,6 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
         ".avatar-container",
         this.avatar = new PersonaAvatar(
           PersonaUtils.convertPersonaToSocialUser(data),
-          120,
         ),
         new Button(".edit", {
           type: ButtonType.Circle,

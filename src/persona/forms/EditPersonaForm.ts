@@ -1,8 +1,8 @@
 import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
-import PersonaEntity from "./PersonaEntity.js";
+import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
+import PersonaEntity from "../PersonaEntity.js";
 import PersonaForm from "./PersonaForm.js";
 
 export default class EditPersonaForm extends DomNode {

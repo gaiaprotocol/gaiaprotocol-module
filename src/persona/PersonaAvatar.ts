@@ -3,9 +3,8 @@ import { User } from "@common-module/social-components";
 import { WalletAvatar } from "@common-module/wallet";
 
 export default class PersonaAvatar extends DomNode {
-  constructor(private user: User, private size: number = 32) {
+  constructor(private user: User) {
     super(".persona-avatar.avatar");
-    this.style({ width: `${size}px`, height: `${size}px` });
     this.clearImage();
   }
 
@@ -15,7 +14,7 @@ export default class PersonaAvatar extends DomNode {
     if (this.user.avatarUrl) {
       this.setImage(this.user.avatarUrl, this.user.isNftAvatar === true);
     } else {
-      this.append(new WalletAvatar(this.user.id, { size: this.size }));
+      this.append(new WalletAvatar(this.user.id));
     }
   }
 
