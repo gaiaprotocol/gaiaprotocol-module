@@ -140,7 +140,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
           multiline: true,
           value: this.data?.bio,
           onChange: (newValue) => {
-            this.data.name = newValue;
+            this.data.bio = newValue;
             this.emit("dataChanged", this.data);
           },
         }),
