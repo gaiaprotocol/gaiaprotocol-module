@@ -8,6 +8,7 @@ import {
   WalletLoginManager,
 } from "@common-module/wallet-login";
 import { AddressUtils } from "@common-module/wallet-utils";
+import GodMode from "./GodMode.js";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";
@@ -107,6 +108,15 @@ class GaiaProtocolConfig {
       authTokenManagerForApp.token = await supabaseConnectorForApp
         .callEdgeFunction<string>("inject-login-credentials", { token });
     };
+  }
+
+  public initForGodMode(isDevMode: boolean, isTestnet: boolean) {
+    this.init(
+      isDevMode,
+      isTestnet,
+      GodMode.supabaseConnector,
+      GodMode.authTokenManager,
+    );
   }
 }
 

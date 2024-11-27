@@ -11,6 +11,7 @@ declare class GaiaProtocolConfig {
     initOnlyForGaiaProtocol(isDevMode: boolean, isTestnet: boolean): void;
     private checkLoggedInUserHasPersona;
     init(isDevMode: boolean, isTestnet: boolean, supabaseConnectorForApp: SupabaseConnector, authTokenManagerForApp: AuthTokenManager): void;
+    initForGodMode(isDevMode: boolean, isTestnet: boolean): void;
 }
 declare const _default: GaiaProtocolConfig;
 export default _default;
