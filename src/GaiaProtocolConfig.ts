@@ -37,9 +37,9 @@ class GaiaProtocolConfig {
     },
     testnet: {
       PersonaFragments: "0x36Cfa7BCD0F4b803e3421Dac9E894A3Db034b03C",
-      ClanEmblems: "0x5d8Be8c1531b4749Ba804232007293ff8335600d",
+      ClanEmblems: "0x9322C4A5E5725262C9960aDE87259d1cE2812412",
       TopicShares: "0x603E1F1673EEC57Ca72A7A5543A34a853CF61a5E",
-      MaterialFactory: "0xFf0Ec0eb0563D32Aa405186248B8C62B1C2A649b",
+      MaterialFactory: "0xc78c189C24379857A80635624877E02306de3EE1",
     },
   };
 
