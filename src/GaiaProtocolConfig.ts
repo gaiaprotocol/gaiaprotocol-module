@@ -18,17 +18,36 @@ class GaiaProtocolConfig {
   public isTestnet = false;
 
   private supabaseUrls = {
-    //TODO: Update with mainnet URL
-    mainnet: "https://vykzkqqncxcfzflpkcsr.supabase.co",
+    mainnet: "",
     testnet: "https://vykzkqqncxcfzflpkcsr.supabase.co",
   };
+
   private supabaseKeys = {
-    //TODO: Update with mainnet key
-    mainnet:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5a3prcXFuY3hjZnpmbHBrY3NyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MDc0OTUsImV4cCI6MjA0NDk4MzQ5NX0.UEGqZvIJ_FPxBk41C0RG4HfHahtR0yUfYVmtiZf61i0",
+    mainnet: "",
     testnet:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5a3prcXFuY3hjZnpmbHBrY3NyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MDc0OTUsImV4cCI6MjA0NDk4MzQ5NX0.UEGqZvIJ_FPxBk41C0RG4HfHahtR0yUfYVmtiZf61i0",
   };
+
+  private contractAddresses: Record<string, Record<string, string>> = {
+    mainnet: {
+      PersonaFragments: "",
+      ClanEmblems: "",
+      TopicShares: "",
+      MaterialFactory: "",
+    },
+    testnet: {
+      PersonaFragments: "0x36Cfa7BCD0F4b803e3421Dac9E894A3Db034b03C",
+      ClanEmblems: "0x5d8Be8c1531b4749Ba804232007293ff8335600d",
+      TopicShares: "0x603E1F1673EEC57Ca72A7A5543A34a853CF61a5E",
+      MaterialFactory: "0xFf0Ec0eb0563D32Aa405186248B8C62B1C2A649b",
+    },
+  };
+
+  public getContractAddress(contractName: string) {
+    return this.contractAddresses[this.isTestnet ? "testnet" : "mainnet"][
+      contractName
+    ];
+  }
 
   private _supabaesConnector: SupabaseConnector | undefined;
 
