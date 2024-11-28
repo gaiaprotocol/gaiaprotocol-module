@@ -178,7 +178,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     ]);
 
     this.data.profile_image_url = optimizedImageUrl;
-    this.data.thumbnail_image_url = thumbnailImageUrl;
+    this.data.profile_thumbnail_url = thumbnailImageUrl;
     this.emit("dataChanged", this.data);
 
     this.avatar.setImage(optimizedImageUrl, false);
@@ -188,7 +188,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
 
   private setNFTAsAvatar(nft: OpenSeaNFTData) {
     this.data.profile_image_url = nft.image_url;
-    this.data.thumbnail_image_url = nft.display_image_url;
+    this.data.profile_thumbnail_url = nft.display_image_url;
     this.emit("dataChanged", this.data);
 
     const imageSrc = nft.display_image_url ?? nft.image_url;
@@ -197,7 +197,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
 
   private clearAvatar() {
     this.data.profile_image_url = undefined;
-    this.data.thumbnail_image_url = undefined;
+    this.data.profile_thumbnail_url = undefined;
     this.emit("dataChanged", this.data);
 
     this.avatar.clearImage();
