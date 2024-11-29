@@ -1,0 +1,1 @@
+//# sourceMappingURL=ClanEntity.d.ts.map

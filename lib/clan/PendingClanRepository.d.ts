@@ -1,0 +1,1 @@
+//# sourceMappingURL=PendingClanRepository.d.ts.map

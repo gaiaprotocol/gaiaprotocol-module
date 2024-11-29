@@ -4,6 +4,8 @@ declare class GaiaProtocolConfig {
     isTestnet: boolean;
     private supabaseUrls;
     private supabaseKeys;
+    private contractAddresses;
+    getContractAddress(contractName: string): string;
     private _supabaesConnector;
     get supabaseConnector(): SupabaseConnector;
     set supabaseConnector(connector: SupabaseConnector);
