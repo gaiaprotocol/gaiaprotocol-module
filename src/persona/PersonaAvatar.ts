@@ -1,9 +1,14 @@
 import { DomNode, el } from "@common-module/app";
-import { User } from "@common-module/social-components";
 import { WalletAddressAvatar } from "@common-module/wallet";
 
 export default class PersonaAvatar extends DomNode {
-  constructor(private user: User) {
+  constructor(
+    private user: {
+      id: string;
+      avatarUrl?: string;
+      isNftAvatar?: boolean;
+    },
+  ) {
     super(".persona-avatar.avatar");
     this.clearImage();
   }

@@ -9,8 +9,8 @@ class PersonaUtils {
       name: persona.name ?? AddressUtils.shortenAddress(persona.wallet_address),
       username: AddressUtils.shortenAddress(persona.wallet_address),
       avatarUrl: persona.profile_image_url,
-      isNftAvatar: persona.nft_address !== undefined &&
-        persona.nft_token_id !== undefined,
+      isNftAvatar: persona.profile_nft_address !== undefined &&
+        persona.profile_nft_token_id !== undefined,
     };
   }
 }

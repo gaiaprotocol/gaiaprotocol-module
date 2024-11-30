@@ -1,9 +1,5 @@
 import { DomNode, el } from "@common-module/app";
-import {
-  Button,
-  ButtonType,
-  Input
-} from "@common-module/app-components";
+import { Button, ButtonType, Input } from "@common-module/app-components";
 import PersonaEntity from "../PersonaEntity.js";
 import BasenameSelectorModal from "../name-selector/BasenameSelectorModal.js";
 import ENSNameSelectorModal from "../name-selector/ENSNameSelectorModal.js";
@@ -13,6 +9,7 @@ import PersonaAvatarInput from "./PersonaAvatarInput.js";
 export default class PersonaForm extends DomNode<HTMLDivElement, {
   dataChanged: (data: PersonaEntity) => void;
 }> {
+  private avatarInput: PersonaAvatarInput;
   private nameInput: Input;
   private ensNameButton: Button;
   private basenameButton: Button;
@@ -22,7 +19,13 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     super(".persona-form");
 
     this.append(
-      new PersonaAvatarInput(data),
+      this.avatarInput = new PersonaAvatarInput({
+        walletAddress: data.wallet_address,
+        profileImageUrl: data.profile_image_url,
+        profileThumbnailUrl: data.profile_thumbnail_url,
+        nftAddress: data.profile_nft_address,
+        nftTokenId: data.profile_nft_token_id,
+      }),
       el(
         ".wallet-address-input-container",
         new Input({
@@ -102,6 +105,14 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
         }),
       ),
     );
+
+    this.avatarInput.on("dataChanged", (data) => {
+      this.data.profile_image_url = data.profileImageUrl;
+      this.data.profile_thumbnail_url = data.profileThumbnailUrl;
+      this.data.profile_nft_address = data.nftAddress;
+      this.data.profile_nft_token_id = data.nftTokenId;
+      this.emit("dataChanged", this.data);
+    });
   }
 
   private clearName() {

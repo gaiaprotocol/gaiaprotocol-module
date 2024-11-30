@@ -10,17 +10,23 @@ import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
 import UserNFTSelectorModal from "../../nft/UserNFTSelectorModal.js";
 import OpenSeaNFTData from "../../opensea/OpenSeaNFTData.js";
 import PersonaAvatar from "../PersonaAvatar.js";
-import PersonaEntity from "../PersonaEntity.js";
-import PersonaUtils from "../PersonaUtils.js";
 import ProfileImageSourceSelectMenu from "../ProfileImageSourceSelectMenu.js";
 
+interface AvatarData {
+  walletAddress: string;
+  profileImageUrl?: string;
+  profileThumbnailUrl?: string;
+  nftAddress?: string;
+  nftTokenId?: string;
+}
+
 export default class PersonaAvatarInput extends DomNode<HTMLDivElement, {
-  dataChanged: (data: PersonaEntity) => void;
+  dataChanged: (data: AvatarData) => void;
 }> {
   private invisibleFileInput: InvisibleFileInput;
   private avatar: PersonaAvatar;
 
-  constructor(private data: PersonaEntity) {
+  constructor(private data: AvatarData) {
     super(".persona-avatar-input");
     this.append(
       this.invisibleFileInput = new InvisibleFileInput({
@@ -29,9 +35,12 @@ export default class PersonaAvatarInput extends DomNode<HTMLDivElement, {
           if (files.length > 0) this.uploadProfileImage(files[0]);
         },
       }),
-      this.avatar = new PersonaAvatar(
-        PersonaUtils.convertPersonaToSocialUser(data),
-      ),
+      this.avatar = new PersonaAvatar({
+        id: data.walletAddress,
+        avatarUrl: data.profileImageUrl,
+        isNftAvatar: data.nftAddress !== undefined &&
+          data.nftTokenId !== undefined,
+      }),
       new Button(".edit", {
         type: ButtonType.Circle,
         icon: new EditIcon(),
@@ -47,7 +56,7 @@ export default class PersonaAvatarInput extends DomNode<HTMLDivElement, {
       event.clientX,
       event.clientY,
       {
-        imageExists: !!this.data.profile_image_url,
+        imageExists: !!this.data.profileImageUrl,
         onSelect: (source) => {
           if (source === "upload") {
             this.invisibleFileInput.openFileSelector();
@@ -87,8 +96,12 @@ export default class PersonaAvatarInput extends DomNode<HTMLDivElement, {
       this.optimizeAndUploadImage(file, 120),
     ]);
 
-    this.data.profile_image_url = optimizedImageUrl;
-    this.data.profile_thumbnail_url = thumbnailImageUrl;
+    this.data = {
+      walletAddress: this.data.walletAddress,
+      profileImageUrl: optimizedImageUrl,
+      profileThumbnailUrl: thumbnailImageUrl,
+    };
+
     this.emit("dataChanged", this.data);
 
     this.avatar.setImage(optimizedImageUrl, false);
@@ -97,8 +110,14 @@ export default class PersonaAvatarInput extends DomNode<HTMLDivElement, {
   }
 
   private setNFTAsAvatar(nft: OpenSeaNFTData) {
-    this.data.profile_image_url = nft.image_url;
-    this.data.profile_thumbnail_url = nft.display_image_url;
+    this.data = {
+      walletAddress: this.data.walletAddress,
+      profileImageUrl: nft.image_url,
+      profileThumbnailUrl: nft.display_image_url,
+      nftAddress: nft.contract,
+      nftTokenId: nft.identifier,
+    };
+
     this.emit("dataChanged", this.data);
 
     const imageSrc = nft.display_image_url ?? nft.image_url;
@@ -106,10 +125,8 @@ export default class PersonaAvatarInput extends DomNode<HTMLDivElement, {
   }
 
   private clearAvatar() {
-    this.data.profile_image_url = undefined;
-    this.data.profile_thumbnail_url = undefined;
+    this.data = { walletAddress: this.data.walletAddress };
     this.emit("dataChanged", this.data);
-
     this.avatar.clearImage();
   }
 }

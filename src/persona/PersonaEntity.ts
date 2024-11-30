@@ -9,8 +9,8 @@ export default interface PersonaEntity {
   profile_image_url?: string;
   profile_thumbnail_url?: string;
 
-  nft_address?: string;
-  nft_token_id?: string;
+  profile_nft_address?: string;
+  profile_nft_token_id?: string;
 
   bio?: string;
 
