@@ -1,29 +1,18 @@
-import { DomNode, el, ImageOptimizer } from "@common-module/app";
+import { DomNode, el } from "@common-module/app";
 import {
-  AppCompConfig,
   Button,
   ButtonType,
-  Input,
-  InvisibleFileInput,
+  Input
 } from "@common-module/app-components";
-import { EditIcon } from "@gaiaprotocol/svg-icons";
-import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
-import UserNFTSelectorModal from "../../nft/UserNFTSelectorModal.js";
-import OpenSeaNFTData from "../../opensea/OpenSeaNFTData.js";
-import PersonaAvatar from "../PersonaAvatar.js";
 import PersonaEntity from "../PersonaEntity.js";
-import PersonaUtils from "../PersonaUtils.js";
-import ProfileImageSourceSelectMenu from "../ProfileImageSourceSelectMenu.js";
 import BasenameSelectorModal from "../name-selector/BasenameSelectorModal.js";
 import ENSNameSelectorModal from "../name-selector/ENSNameSelectorModal.js";
 import GaiaNameSelectorModal from "../name-selector/GaiaNameSelectorModal.js";
+import PersonaAvatarInput from "./PersonaAvatarInput.js";
 
 export default class PersonaForm extends DomNode<HTMLDivElement, {
   dataChanged: (data: PersonaEntity) => void;
 }> {
-  private avatarContainer: DomNode;
-  private avatar: PersonaAvatar;
-  private invisibleFileInput: InvisibleFileInput;
   private nameInput: Input;
   private ensNameButton: Button;
   private basenameButton: Button;
@@ -33,40 +22,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     super(".persona-form");
 
     this.append(
-      this.avatarContainer = el(
-        ".avatar-container",
-        this.avatar = new PersonaAvatar(
-          PersonaUtils.convertPersonaToSocialUser(data),
-        ),
-        new Button(".edit", {
-          type: ButtonType.Circle,
-          icon: new EditIcon(),
-          onClick: (_, event) => {
-            event.stopPropagation();
-            new ProfileImageSourceSelectMenu(
-              event.clientX,
-              event.clientY,
-              {
-                imageExists: !!this.data.profile_image_url,
-                onSelect: (source) => {
-                  if (source === "upload") {
-                    this.invisibleFileInput.openFileSelector();
-                  } else if (source === "nft") {
-                    new UserNFTSelectorModal((nft) => this.setNFTAsAvatar(nft));
-                  }
-                },
-                onDeleted: () => this.clearAvatar(),
-              },
-            );
-          },
-        }),
-        this.invisibleFileInput = new InvisibleFileInput({
-          accept: "image/*",
-          onChange: (files) => {
-            if (files.length > 0) this.uploadProfileImage(files[0]);
-          },
-        }),
-      ),
+      new PersonaAvatarInput(data),
       el(
         ".wallet-address-input-container",
         new Input({
@@ -146,61 +102,6 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
         }),
       ),
     );
-  }
-
-  private async optimizeAndUploadImage(file: File, maxSize: number) {
-    const optimized = await ImageOptimizer.optimizeImage(
-      file,
-      maxSize,
-      maxSize,
-    );
-
-    const formData = new FormData();
-    formData.append("file", optimized);
-
-    const filePath = await GaiaProtocolConfig.supabaseConnector
-      .callEdgeFunction(
-        "upload-profile-image",
-        formData,
-      );
-
-    return `https://storage.googleapis.com/gaiaprotocol/profile_images/${filePath}`;
-  }
-
-  private async uploadProfileImage(file: File) {
-    const loadingSpinner = new AppCompConfig.LoadingSpinner().appendTo(
-      this.avatarContainer,
-    );
-
-    const [optimizedImageUrl, thumbnailImageUrl] = await Promise.all([
-      this.optimizeAndUploadImage(file, 1024),
-      this.optimizeAndUploadImage(file, 120),
-    ]);
-
-    this.data.profile_image_url = optimizedImageUrl;
-    this.data.profile_thumbnail_url = thumbnailImageUrl;
-    this.emit("dataChanged", this.data);
-
-    this.avatar.setImage(optimizedImageUrl, false);
-
-    loadingSpinner.remove();
-  }
-
-  private setNFTAsAvatar(nft: OpenSeaNFTData) {
-    this.data.profile_image_url = nft.image_url;
-    this.data.profile_thumbnail_url = nft.display_image_url;
-    this.emit("dataChanged", this.data);
-
-    const imageSrc = nft.display_image_url ?? nft.image_url;
-    if (imageSrc) this.avatar.setImage(imageSrc, true);
-  }
-
-  private clearAvatar() {
-    this.data.profile_image_url = undefined;
-    this.data.profile_thumbnail_url = undefined;
-    this.emit("dataChanged", this.data);
-
-    this.avatar.clearImage();
   }
 
   private clearName() {

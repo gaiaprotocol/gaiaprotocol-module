@@ -20,6 +20,6 @@ export default class PersonaAvatar extends DomNode {
 
   public setImage(src: string, isNFT: boolean): void {
     isNFT ? this.addClass("nft") : this.removeClass("nft");
-    this.append(el("img", { src }));
+    this.clear().append(el("img", { src }));
   }
 }
