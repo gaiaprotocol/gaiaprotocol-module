@@ -11,8 +11,8 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
     private gaiaNameButton;
     constructor(data: PersonaEntity);
     private clearName;
-    private selectENSName;
-    private selectBasename;
-    private selectGaiaName;
+    private selectName;
+    private updateNameSource;
+    private updateButtonSelection;
 }
 //# sourceMappingURL=PersonaForm.d.ts.map
