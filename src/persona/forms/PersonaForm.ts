@@ -42,6 +42,7 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
           value: this.data?.name,
           onChange: (newValue) => {
             this.data.name = newValue;
+            this.updateNameSource(null);
             this.emit("dataChanged", this.data);
           },
           onClick: (input) => {
@@ -55,12 +56,13 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
             {
               type: ButtonType.Outlined,
               title: "Use ENS Name",
-              onClick: () =>
-                this.data?.is_ens_name
-                  ? undefined
-                  : new ENSNameSelectorModal((name) =>
-                    this.selectENSName(name)
-                  ),
+              onClick: () => {
+                if (!this.data?.is_ens_name) {
+                  new ENSNameSelectorModal((name) =>
+                    this.selectName(name, "ENS")
+                  );
+                }
+              },
             },
           ),
           this.basenameButton = new Button(
@@ -68,12 +70,13 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
             {
               type: ButtonType.Outlined,
               title: "Use Basename",
-              onClick: () =>
-                this.data?.is_basename
-                  ? undefined
-                  : new BasenameSelectorModal((name) =>
-                    this.selectBasename(name)
-                  ),
+              onClick: () => {
+                if (!this.data?.is_basename) {
+                  new BasenameSelectorModal((name) =>
+                    this.selectName(name, "Basename")
+                  );
+                }
+              },
             },
           ),
           this.gaiaNameButton = new Button(
@@ -81,12 +84,13 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
             {
               type: ButtonType.Outlined,
               title: "Use Gaia Name",
-              onClick: () =>
-                this.data?.is_gaia_name
-                  ? undefined
-                  : new GaiaNameSelectorModal((name) =>
-                    this.selectGaiaName(name)
-                  ),
+              onClick: () => {
+                if (!this.data?.is_gaia_name) {
+                  new GaiaNameSelectorModal((name) =>
+                    this.selectName(name, "Gaia")
+                  );
+                }
+              },
             },
           ),
         ),
@@ -117,61 +121,43 @@ export default class PersonaForm extends DomNode<HTMLDivElement, {
 
   private clearName() {
     this.data.name = undefined;
-    this.data.is_ens_name = undefined;
-    this.data.is_basename = undefined;
-    this.data.is_gaia_name = undefined;
+    this.updateNameSource(null);
     this.emit("dataChanged", this.data);
 
     this.nameInput.value = "";
     this.nameInput.readOnly = false;
 
-    this.ensNameButton.removeClass("selected");
-    this.basenameButton.removeClass("selected");
-    this.gaiaNameButton.removeClass("selected");
+    this.updateButtonSelection();
   }
 
-  private selectENSName(name: string) {
+  private selectName(name: string, source: "ENS" | "Basename" | "Gaia") {
     this.data.name = name;
-    this.data.is_ens_name = true;
-    this.data.is_basename = undefined;
-    this.data.is_gaia_name = undefined;
+    this.updateNameSource(source);
     this.emit("dataChanged", this.data);
 
     this.nameInput.value = name;
     this.nameInput.readOnly = true;
 
-    this.ensNameButton.addClass("selected");
-    this.basenameButton.removeClass("selected");
-    this.gaiaNameButton.removeClass("selected");
+    this.updateButtonSelection();
   }
 
-  private selectBasename(name: string) {
-    this.data.name = name;
-    this.data.is_ens_name = undefined;
-    this.data.is_basename = true;
-    this.data.is_gaia_name = undefined;
-    this.emit("dataChanged", this.data);
-
-    this.nameInput.value = name;
-    this.nameInput.readOnly = true;
-
-    this.ensNameButton.removeClass("selected");
-    this.basenameButton.addClass("selected");
-    this.gaiaNameButton.removeClass("selected");
+  private updateNameSource(source: "ENS" | "Basename" | "Gaia" | null) {
+    this.data.is_ens_name = source === "ENS" ? true : undefined;
+    this.data.is_basename = source === "Basename" ? true : undefined;
+    this.data.is_gaia_name = source === "Gaia" ? true : undefined;
   }
 
-  private selectGaiaName(name: string) {
-    this.data.name = name;
-    this.data.is_ens_name = undefined;
-    this.data.is_basename = undefined;
-    this.data.is_gaia_name = true;
-    this.emit("dataChanged", this.data);
+  private updateButtonSelection() {
+    this.data.is_ens_name
+      ? this.ensNameButton.addClass("selected")
+      : this.ensNameButton.removeClass("selected");
 
-    this.nameInput.value = name;
-    this.nameInput.readOnly = true;
+    this.data.is_basename
+      ? this.basenameButton.addClass("selected")
+      : this.basenameButton.removeClass("selected");
 
-    this.ensNameButton.removeClass("selected");
-    this.basenameButton.removeClass("selected");
-    this.gaiaNameButton.addClass("selected");
+    this.data.is_gaia_name
+      ? this.gaiaNameButton.addClass("selected")
+      : this.gaiaNameButton.removeClass("selected");
   }
 }
