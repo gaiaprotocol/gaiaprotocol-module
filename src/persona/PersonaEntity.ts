@@ -15,6 +15,7 @@ export default interface PersonaEntity {
   bio?: string;
 
   created_at?: string;
+  updated_at?: string;
 }
 
 export const PersonaQuery = "*";

@@ -10,6 +10,7 @@ export default interface PersonaEntity {
     profile_nft_token_id?: string;
     bio?: string;
     created_at?: string;
+    updated_at?: string;
 }
 export declare const PersonaQuery = "*";
 //# sourceMappingURL=PersonaEntity.d.ts.map
