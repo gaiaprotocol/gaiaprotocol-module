@@ -1,6 +1,7 @@
 export default interface GameEntity {
-  id: number;
+  id?: number;
   slug: string;
+  owner?: string;
 
   name: string;
   summary?: string;
@@ -10,9 +11,9 @@ export default interface GameEntity {
   screenshots: string[];
   trailer_url?: string;
 
-  is_public: boolean;
+  is_public?: boolean;
 
-  created_at: string;
+  created_at?: string;
   updated_at?: string;
 }
 

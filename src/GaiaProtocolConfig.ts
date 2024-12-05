@@ -8,6 +8,7 @@ import {
   WalletLoginManager,
 } from "@common-module/wallet-login";
 import { AddressUtils } from "@common-module/wallet-utils";
+import GameRepository from "./game/GameRepository.js";
 import GodMode from "./GodMode.js";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
@@ -77,6 +78,7 @@ class GaiaProtocolConfig {
 
     WalletLoginConfig.supabaseConnector = this.supabaseConnector;
     PersonaRepository.supabaseConnector = this.supabaseConnector;
+    GameRepository.supabaseConnector = this.supabaseConnector;
 
     SocialCompConfig.Avatar = PersonaAvatar;
 
