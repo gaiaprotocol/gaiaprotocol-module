@@ -1,3 +1,4 @@
+export { default as LogoInput } from "./form/LogoInput.js";
 export { default as GaiaNameRepository } from "./gaia-names/GaiaNameRepository.js";
 export { default as GaiaProtocolConfig } from "./GaiaProtocolConfig.js";
 export { default as GodMode } from "./GodMode.js";
