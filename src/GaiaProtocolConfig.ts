@@ -9,19 +9,19 @@ import {
 } from "@common-module/wallet-login";
 import { AddressUtils } from "@common-module/wallet-utils";
 import { base, baseSepolia } from "@wagmi/core/chains";
+import ClanRepository from "./clan/ClanRepository.js";
 import GameRepository from "./game/GameRepository.js";
 import GodMode from "./GodMode.js";
 import MaterialRepository from "./material/MaterialRepository.js";
-import PendingMaterialRepository from "./material/PendingMaterialRepository.js";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";
 
 const repositories = [
   GameRepository,
-  MaterialRepository,
-  PendingMaterialRepository,
   PersonaRepository,
+  ClanRepository,
+  MaterialRepository,
 ];
 
 class GaiaProtocolConfig {
@@ -60,7 +60,10 @@ class GaiaProtocolConfig {
 
   public getContractAddress(
     contractName:
-      keyof typeof GaiaProtocolConfig.prototype.contractAddresses.mainnet,
+      | "PersonaFragments"
+      | "ClanEmblems"
+      | "TopicShares"
+      | "MaterialFactory",
   ) {
     return this.contractAddresses[this.isTestnet ? "testnet" : "mainnet"][
       contractName

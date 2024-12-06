@@ -6,7 +6,7 @@ declare class GaiaProtocolConfig {
     private supabaseKeys;
     private contractAddresses;
     getChainId(): 84532 | 8453;
-    getContractAddress(contractName: keyof typeof GaiaProtocolConfig.prototype.contractAddresses.mainnet): `0x${string}`;
+    getContractAddress(contractName: "PersonaFragments" | "ClanEmblems" | "TopicShares" | "MaterialFactory"): `0x${string}`;
     private _supabaesConnector;
     get supabaseConnector(): SupabaseConnector;
     set supabaseConnector(connector: SupabaseConnector);

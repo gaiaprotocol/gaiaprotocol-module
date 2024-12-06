@@ -1,1 +1,1 @@
-{"version":3,"file":"ClanRepository.d.ts","sourceRoot":"","sources":["../../src/clan/ClanRepository.ts"],"names":[],"mappings":""}
+{"version":3,"file":"ClanRepository.d.ts","sourceRoot":"","sources":["../../src/clan/ClanRepository.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,sBAAsB,EAAE,MAAM,yBAAyB,CAAC;AACjE,OAAO,UAAyB,MAAM,iBAAiB,CAAC;AAExD,cAAM,cAAe,SAAQ,sBAAsB,CAAC,UAAU,CAAC;;IAKhD,SAAS,CAAC,EAAE,EAAE,MAAM,GAAG,OAAO,CAAC,UAAU,GAAG,SAAS,CAAC;CAGpE;;AAED,wBAAoC"}

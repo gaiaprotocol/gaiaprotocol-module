@@ -1,4 +1,5 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
+import { stringToHex } from "viem";
 import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
 import MaterialFactoryArtifact from "./artifacts/MaterialFactory.json" assert {
   type: "json",
@@ -15,7 +16,7 @@ class MaterialFactoryContract {
       address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
       abi: MaterialFactoryArtifact.abi,
       functionName: "createMaterial",
-      args: [name, symbol, metadataHash],
+      args: [name, symbol, stringToHex(metadataHash, { size: 32 })],
     });
 
     for (const event of events) {

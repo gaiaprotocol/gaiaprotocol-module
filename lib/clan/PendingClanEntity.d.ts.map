@@ -1,1 +1,1 @@
-{"version":3,"file":"PendingClanEntity.d.ts","sourceRoot":"","sources":["../../src/clan/PendingClanEntity.ts"],"names":[],"mappings":""}
+{"version":3,"file":"PendingClanEntity.d.ts","sourceRoot":"","sources":["../../src/clan/PendingClanEntity.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,iBAAiB;IACxC,aAAa,CAAC,EAAE,MAAM,CAAC;IAEvB,IAAI,CAAC,EAAE,MAAM,CAAC;IAEd,cAAc,CAAC,EAAE,MAAM,CAAC;IACxB,kBAAkB,CAAC,EAAE,MAAM,CAAC;IAE5B,WAAW,CAAC,EAAE,MAAM,CAAC;IAErB,UAAU,CAAC,EAAE,MAAM,CAAC;CACrB;AAED,eAAO,MAAM,gBAAgB,MAAM,CAAC"}

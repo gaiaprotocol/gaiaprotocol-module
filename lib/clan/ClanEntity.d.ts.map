@@ -1,1 +1,1 @@
-{"version":3,"file":"ClanEntity.d.ts","sourceRoot":"","sources":["../../src/clan/ClanEntity.ts"],"names":[],"mappings":""}
+{"version":3,"file":"ClanEntity.d.ts","sourceRoot":"","sources":["../../src/clan/ClanEntity.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,UAAU;IACjC,EAAE,CAAC,EAAE,MAAM,CAAC;IAEZ,KAAK,CAAC,EAAE,MAAM,CAAC;IAEf,IAAI,CAAC,EAAE,MAAM,CAAC;IAEd,cAAc,CAAC,EAAE,MAAM,CAAC;IACxB,kBAAkB,CAAC,EAAE,MAAM,CAAC;IAE5B,WAAW,CAAC,EAAE,MAAM,CAAC;IAErB,UAAU,CAAC,EAAE,MAAM,CAAC;IACpB,UAAU,CAAC,EAAE,MAAM,CAAC;CACrB;AAED,eAAO,MAAM,SAAS,MAAM,CAAC"}
