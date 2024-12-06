@@ -1,1 +1,1 @@
-{"version":3,"file":"MaterialContract.d.ts","sourceRoot":"","sources":["../../../src/material/contracts/MaterialContract.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,OAAO,gBAAgB;;CAEpC"}
+{"version":3,"file":"MaterialContract.d.ts","sourceRoot":"","sources":["../../../src/material/contracts/MaterialContract.ts"],"names":[],"mappings":"AAMA,MAAM,CAAC,OAAO,OAAO,gBAAgB;IACvB,OAAO,CAAC,OAAO;gBAAP,OAAO,EAAE,KAAK,MAAM,EAAE;IAE7B,SAAS,CAAC,OAAO,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,CAAC;CASzD"}
