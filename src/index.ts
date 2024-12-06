@@ -11,9 +11,11 @@ export { default as MaterialContract } from "./material/contracts/MaterialContra
 export { default as MaterialFactoryContract } from "./material/contracts/MaterialFactoryContract.js";
 export { default as MaterialEntity } from "./material/MaterialEntity.js";
 export { default as MaterialRepository } from "./material/MaterialRepository.js";
+export { default as TradeMaterialModal } from "./material/trade/TradeMaterialModal.js";
 export { default as NFTList } from "./nft/NFTList.js";
 export { default as OpenSeaNFTData } from "./opensea/OpenSeaNFTData.js";
 export { default as PersonaAvatar } from "./persona/PersonaAvatar.js";
 export { default as PersonaDisplay } from "./persona/PersonaDisplay.js";
 export { default as PersonaEntity } from "./persona/PersonaEntity.js";
 export { default as PersonaRepository } from "./persona/PersonaRepository.js";
+
