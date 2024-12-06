@@ -8,11 +8,21 @@ import {
   WalletLoginManager,
 } from "@common-module/wallet-login";
 import { AddressUtils } from "@common-module/wallet-utils";
+import { base, baseSepolia } from "@wagmi/core/chains";
 import GameRepository from "./game/GameRepository.js";
 import GodMode from "./GodMode.js";
+import MaterialRepository from "./material/MaterialRepository.js";
+import PendingMaterialRepository from "./material/PendingMaterialRepository.js";
 import PersonaAvatar from "./persona/PersonaAvatar.js";
 import PersonaRepository from "./persona/PersonaRepository.js";
 import PersonaUtils from "./persona/PersonaUtils.js";
+
+const repositories = [
+  GameRepository,
+  MaterialRepository,
+  PendingMaterialRepository,
+  PersonaRepository,
+];
 
 class GaiaProtocolConfig {
   public isDevMode = false;
@@ -29,12 +39,12 @@ class GaiaProtocolConfig {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5a3prcXFuY3hjZnpmbHBrY3NyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MDc0OTUsImV4cCI6MjA0NDk4MzQ5NX0.UEGqZvIJ_FPxBk41C0RG4HfHahtR0yUfYVmtiZf61i0",
   };
 
-  private contractAddresses: Record<string, Record<string, string>> = {
+  private contractAddresses: Record<string, Record<string, `0x${string}`>> = {
     mainnet: {
-      PersonaFragments: "",
-      ClanEmblems: "",
-      TopicShares: "",
-      MaterialFactory: "",
+      PersonaFragments: "0x", //TODO:
+      ClanEmblems: "0x", //TODO:
+      TopicShares: "0x", //TODO:
+      MaterialFactory: "0x", //TODO:
     },
     testnet: {
       PersonaFragments: "0x36Cfa7BCD0F4b803e3421Dac9E894A3Db034b03C",
@@ -44,7 +54,14 @@ class GaiaProtocolConfig {
     },
   };
 
-  public getContractAddress(contractName: string) {
+  public getChainId() {
+    return this.isTestnet ? baseSepolia.id : base.id;
+  }
+
+  public getContractAddress(
+    contractName:
+      keyof typeof GaiaProtocolConfig.prototype.contractAddresses.mainnet,
+  ) {
     return this.contractAddresses[this.isTestnet ? "testnet" : "mainnet"][
       contractName
     ];
@@ -76,9 +93,10 @@ class GaiaProtocolConfig {
       WalletLoginManager,
     );
 
-    WalletLoginConfig.supabaseConnector = this.supabaseConnector;
-    PersonaRepository.supabaseConnector = this.supabaseConnector;
-    GameRepository.supabaseConnector = this.supabaseConnector;
+    [
+      WalletLoginConfig,
+      ...repositories,
+    ].forEach((repo) => repo.supabaseConnector = this.supabaseConnector);
 
     SocialCompConfig.Avatar = PersonaAvatar;
 

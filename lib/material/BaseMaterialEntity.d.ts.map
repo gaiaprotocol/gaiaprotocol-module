@@ -1,0 +1,1 @@
+{"version":3,"file":"BaseMaterialEntity.d.ts","sourceRoot":"","sources":["../../src/material/BaseMaterialEntity.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,kBAAkB;IACzC,OAAO,EAAE,MAAM,CAAC;IAChB,cAAc,CAAC,EAAE,MAAM,CAAC;IACxB,kBAAkB,CAAC,EAAE,MAAM,CAAC;IAC5B,WAAW,CAAC,EAAE,MAAM,CAAC;CACtB"}

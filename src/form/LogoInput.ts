@@ -10,6 +10,7 @@ import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 
 interface LogoInputOptions {
   functionName: string;
+  onChange: (data: LogoData) => void;
 }
 
 interface LogoData {
@@ -22,7 +23,7 @@ export default class LogoInput extends DomNode<HTMLDivElement, {
 }> {
   private logoDisplay: FileDropzone;
 
-  constructor(private options: LogoInputOptions, private data: LogoData) {
+  constructor(private options: LogoInputOptions, private data?: LogoData) {
     super(".logo-input");
 
     this.append(
@@ -37,9 +38,11 @@ export default class LogoInput extends DomNode<HTMLDivElement, {
       }),
     );
 
-    this.logoDisplay.style({
-      backgroundImage: `url(${this.data.logoImageUrl})`,
-    });
+    if (this.data) {
+      this.logoDisplay.style({
+        backgroundImage: `url(${this.data.logoImageUrl})`,
+      });
+    }
   }
 
   private async optimizeAndUploadImage(file: File, maxSize: number) {

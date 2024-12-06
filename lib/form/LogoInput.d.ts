@@ -1,6 +1,7 @@
 import { DomNode } from "@common-module/app";
 interface LogoInputOptions {
     functionName: string;
+    onChange: (data: LogoData) => void;
 }
 interface LogoData {
     logoImageUrl?: string;
@@ -10,9 +11,9 @@ export default class LogoInput extends DomNode<HTMLDivElement, {
     dataChanged: (data: LogoData) => void;
 }> {
     private options;
-    private data;
+    private data?;
     private logoDisplay;
-    constructor(options: LogoInputOptions, data: LogoData);
+    constructor(options: LogoInputOptions, data?: LogoData | undefined);
     private optimizeAndUploadImage;
     private uploadLogoImage;
     private clearLogo;

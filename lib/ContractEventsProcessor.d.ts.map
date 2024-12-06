@@ -1,1 +1,1 @@
-{"version":3,"file":"ContractEventsProcessor.d.ts","sourceRoot":"","sources":["../src/ContractEventsProcessor.ts"],"names":[],"mappings":"AAEA,cAAM,uBAAuB;IACd,aAAa,CACxB,OAAO,EAAE,MAAM,EACf,QAAQ,EACJ,kBAAkB,GAClB,aAAa,GACb,aAAa,GACb,iBAAiB;CAOxB;;AAED,wBAA6C"}
+{"version":3,"file":"ContractEventsProcessor.d.ts","sourceRoot":"","sources":["../src/ContractEventsProcessor.ts"],"names":[],"mappings":"AAEA,cAAM,uBAAuB;IACd,aAAa,CACxB,QAAQ,EACJ,kBAAkB,GAClB,aAAa,GACb,aAAa,GACb,iBAAiB;CAOxB;;AAED,wBAA6C"}

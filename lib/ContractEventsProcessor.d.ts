@@ -1,5 +1,5 @@
 declare class ContractEventsProcessor {
-    processEvents(chainId: number, contract: "PersonaFragments" | "ClanEmblems" | "TopicShares" | "MaterialFactory"): Promise<void>;
+    processEvents(contract: "PersonaFragments" | "ClanEmblems" | "TopicShares" | "MaterialFactory"): Promise<void>;
 }
 declare const _default: ContractEventsProcessor;
 export default _default;

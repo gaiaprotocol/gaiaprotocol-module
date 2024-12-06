@@ -9,6 +9,7 @@ export default interface MaterialEntity {
 
   logo_image_url?: string;
   logo_thumbnail_url?: string;
+
   description?: string;
 
   created_at?: string;
