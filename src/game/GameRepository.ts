@@ -10,6 +10,10 @@ class GameRepository extends SupabaseDataRepository<GameEntity> {
     return await this.insert(game);
   }
 
+  public async fetchById(id: number): Promise<GameEntity | undefined> {
+    return await this.fetchSingle((b) => b.eq("id", id));
+  }
+
   public async fetchBySlug(slug: string): Promise<GameEntity | undefined> {
     return await this.fetchSingle((b) => b.eq("slug", slug));
   }
