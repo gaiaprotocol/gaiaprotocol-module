@@ -32,6 +32,12 @@ class MaterialDataManager extends EventContainer<{
     if (material) this.setMaterial(material);
     return material;
   }
+
+  public async getMaterialsByGame(gameId: number): Promise<MaterialEntity[]> {
+    const materials = await MaterialRepository.fetchByGame(gameId);
+    materials.forEach((material) => this.setMaterial(material));
+    return materials;
+  }
 }
 
 export default new MaterialDataManager();

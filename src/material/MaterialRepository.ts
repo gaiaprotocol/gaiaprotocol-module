@@ -11,6 +11,10 @@ class MaterialRepository extends SupabaseDataRepository<MaterialEntity> {
   ): Promise<MaterialEntity | undefined> {
     return await this.fetchSingle((b) => b.eq("address", address));
   }
+
+  public async fetchByGame(gameId: number): Promise<MaterialEntity[]> {
+    return await this.fetch((b) => b.eq("game_id", gameId));
+  }
 }
 
 export default new MaterialRepository();
