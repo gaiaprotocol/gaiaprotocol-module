@@ -38,6 +38,14 @@ class MaterialDataManager extends EventContainer<{
     materials.forEach((material) => this.setMaterial(material));
     return materials;
   }
+
+  public async updateMaterial(
+    material: MaterialEntity,
+  ): Promise<MaterialEntity> {
+    const updatedMaterial = await MaterialRepository.update(material);
+    this.setMaterial(updatedMaterial);
+    return updatedMaterial;
+  }
 }
 
 export default new MaterialDataManager();

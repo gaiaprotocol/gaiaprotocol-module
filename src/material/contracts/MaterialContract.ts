@@ -16,4 +16,24 @@ export default class MaterialContract {
       args: [account],
     }) as bigint;
   }
+
+  public async setName(name: string): Promise<void> {
+    await WalletSessionManager.writeContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: this.address,
+      abi: MaterialArtifact.abi,
+      functionName: "setName",
+      args: [name],
+    });
+  }
+
+  public async setSymbol(symbol: string): Promise<void> {
+    await WalletSessionManager.writeContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: this.address,
+      abi: MaterialArtifact.abi,
+      functionName: "setSymbol",
+      args: [symbol],
+    });
+  }
 }

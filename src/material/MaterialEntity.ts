@@ -1,5 +1,5 @@
 export default interface MaterialEntity {
-  address?: string;
+  address?: `0x${string}`;
 
   game_id: number;
   owner?: string;

@@ -15,6 +15,14 @@ class MaterialRepository extends SupabaseDataRepository<MaterialEntity> {
   public async fetchByGame(gameId: number): Promise<MaterialEntity[]> {
     return await this.fetch((b) => b.eq("game_id", gameId));
   }
+
+  public async update(material: MaterialEntity): Promise<MaterialEntity> {
+    return await this.safeUpdate((b) => b.eq("address", material.address), {
+      logo_image_url: material.logo_image_url,
+      logo_thumbnail_url: material.logo_thumbnail_url,
+      description: material.description,
+    });
+  }
 }
 
 export default new MaterialRepository();
