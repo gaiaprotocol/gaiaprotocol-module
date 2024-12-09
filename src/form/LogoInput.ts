@@ -5,25 +5,30 @@ import {
   ButtonType,
   FileDropzone,
 } from "@common-module/app-components";
+import { ObjectUtils } from "@common-module/ts";
 import { DeleteIcon, UploadIcon } from "@gaiaprotocol/svg-icons";
 import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
 
 interface LogoInputOptions {
   functionName: string;
-  onChange: (data: LogoData) => void;
+  onChange: (data: LogoData | undefined) => void;
 }
 
-interface LogoData {
+export interface LogoData {
   logoImageUrl?: string;
   logoThumbnailUrl?: string;
 }
 
 export default class LogoInput extends DomNode<HTMLDivElement, {
-  dataChanged: (data: LogoData) => void;
+  dataChanged: (data: LogoData | undefined) => void;
 }> {
   private logoDisplay: FileDropzone;
+  private _data?: LogoData;
 
-  constructor(private options: LogoInputOptions, private data?: LogoData) {
+  constructor(
+    private options: LogoInputOptions,
+    initialData?: LogoData,
+  ) {
     super(".logo-input");
 
     this.append(
@@ -34,15 +39,11 @@ export default class LogoInput extends DomNode<HTMLDivElement, {
       new Button(".clear", {
         type: ButtonType.Circle,
         icon: new DeleteIcon(),
-        onClick: () => this.clearLogo(),
+        onClick: () => this.data = undefined,
       }),
     );
 
-    if (this.data) {
-      this.logoDisplay.style({
-        backgroundImage: `url(${this.data.logoImageUrl})`,
-      });
-    }
+    this.data = initialData;
   }
 
   private async optimizeAndUploadImage(file: File, maxSize: number) {
@@ -74,16 +75,27 @@ export default class LogoInput extends DomNode<HTMLDivElement, {
       logoThumbnailUrl: thumbnailImageUrl,
     };
 
-    this.emit("dataChanged", this.data);
-
-    this.logoDisplay.style({ backgroundImage: `url(${optimizedImageUrl})` });
-
     loadingSpinner.remove();
   }
 
-  private clearLogo() {
-    this.data = {};
-    this.emit("dataChanged", this.data);
-    this.logoDisplay.style({ backgroundImage: "" });
+  public get data(): LogoData | undefined {
+    return this._data;
+  }
+
+  public set data(data: LogoData | undefined) {
+    if (ObjectUtils.isEqual(this._data, data)) return;
+
+    this._data = data;
+
+    if (data) {
+      this.logoDisplay.style({ backgroundImage: `url(${data.logoImageUrl})` });
+      this.addClass("has-thumbnail");
+    } else {
+      this.logoDisplay.style({ backgroundImage: "" });
+      this.removeClass("has-thumbnail");
+    }
+
+    this.options.onChange(data);
+    this.emit("dataChanged", data);
   }
 }

@@ -1,22 +1,23 @@
 import { DomNode } from "@common-module/app";
 interface LogoInputOptions {
     functionName: string;
-    onChange: (data: LogoData) => void;
+    onChange: (data: LogoData | undefined) => void;
 }
-interface LogoData {
+export interface LogoData {
     logoImageUrl?: string;
     logoThumbnailUrl?: string;
 }
 export default class LogoInput extends DomNode<HTMLDivElement, {
-    dataChanged: (data: LogoData) => void;
+    dataChanged: (data: LogoData | undefined) => void;
 }> {
     private options;
-    private data?;
     private logoDisplay;
-    constructor(options: LogoInputOptions, data?: LogoData | undefined);
+    private _data?;
+    constructor(options: LogoInputOptions, initialData?: LogoData);
     private optimizeAndUploadImage;
     private uploadLogoImage;
-    private clearLogo;
+    get data(): LogoData | undefined;
+    set data(data: LogoData | undefined);
 }
 export {};
 //# sourceMappingURL=LogoInput.d.ts.map
