@@ -7,6 +7,10 @@ declare class GameDataManager extends EventContainer<{
     private pendingRequests;
     setGame(game: GameEntity): void;
     getGame(gameId: number): Promise<GameEntity | undefined>;
+    getGameBySlug(slug: string): Promise<GameEntity | undefined>;
+    getGamesByOwner(owner: string): Promise<GameEntity[]>;
+    createGame(game: GameEntity): Promise<GameEntity>;
+    updateGame(game: GameEntity): Promise<GameEntity>;
 }
 declare const _default: GameDataManager;
 export default _default;

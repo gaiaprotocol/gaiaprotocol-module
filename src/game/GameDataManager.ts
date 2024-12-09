@@ -30,6 +30,35 @@ class GameDataManager extends EventContainer<{
     if (game) this.setGame(game);
     return game;
   }
+
+  public async getGameBySlug(slug: string): Promise<GameEntity | undefined> {
+    const cachedGame = Array.from(this.gameCache.values()).find((game) =>
+      game.slug === slug
+    );
+    if (cachedGame) return cachedGame;
+
+    const game = await GameRepository.fetchBySlug(slug);
+    if (game) this.setGame(game);
+    return game;
+  }
+
+  public async getGamesByOwner(owner: string): Promise<GameEntity[]> {
+    const games = await GameRepository.fetchByOwner(owner);
+    games.forEach((game) => this.setGame(game));
+    return games;
+  }
+
+  public async createGame(game: GameEntity): Promise<GameEntity> {
+    const createdGame = await GameRepository.insert(game);
+    this.setGame(createdGame);
+    return createdGame;
+  }
+
+  public async updateGame(game: GameEntity): Promise<GameEntity> {
+    const updatedGame = await GameRepository.update(game);
+    this.setGame(updatedGame);
+    return updatedGame;
+  }
 }
 
 export default new GameDataManager();

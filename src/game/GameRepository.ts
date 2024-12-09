@@ -6,8 +6,12 @@ class GameRepository extends SupabaseDataRepository<GameEntity> {
     super("games", GameQuery);
   }
 
-  public async createGame(game: GameEntity): Promise<GameEntity> {
-    return await this.insert(game);
+  public async insert(game: GameEntity): Promise<GameEntity> {
+    return await super.insert(game);
+  }
+
+  public async update(game: GameEntity): Promise<GameEntity> {
+    return await super.update(game);
   }
 
   public async fetchById(id: number): Promise<GameEntity | undefined> {
@@ -16,6 +20,10 @@ class GameRepository extends SupabaseDataRepository<GameEntity> {
 
   public async fetchBySlug(slug: string): Promise<GameEntity | undefined> {
     return await this.fetchSingle((b) => b.eq("slug", slug));
+  }
+
+  public async fetchByOwner(owner: string): Promise<GameEntity[]> {
+    return await this.fetch((b) => b.eq("owner", owner));
   }
 }
 
