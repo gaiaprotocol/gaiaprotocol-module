@@ -56,6 +56,7 @@ class GameDataManager extends EventContainer<{
 
   public async updateGame(game: GameEntity): Promise<GameEntity> {
     const updatedGame = await GameRepository.update(game);
+    console.log(updatedGame);
     this.setGame(updatedGame);
     return updatedGame;
   }

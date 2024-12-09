@@ -7,11 +7,23 @@ class GameRepository extends SupabaseDataRepository<GameEntity> {
   }
 
   public async insert(game: GameEntity): Promise<GameEntity> {
-    return await super.insert(game);
+    return await this.safeInsert(game);
   }
 
   public async update(game: GameEntity): Promise<GameEntity> {
-    return await super.update(game);
+    if (!game.id) throw new Error("Game must have an id to be updated");
+
+    return await this.safeUpdate((b) => b.eq("id", game.id), {
+      slug: game.slug,
+
+      name: game.name,
+      summary: game.summary,
+      description: game.description,
+
+      thumbnail_url: game.thumbnail_url,
+      screenshots: game.screenshots,
+      trailer_url: game.trailer_url,
+    });
   }
 
   public async fetchById(id: number): Promise<GameEntity | undefined> {
