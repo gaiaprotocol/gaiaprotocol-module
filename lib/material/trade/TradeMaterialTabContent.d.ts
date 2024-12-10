@@ -7,7 +7,8 @@ export default abstract class TradeMaterialTabContent extends DomNode {
     private unitPriceDisplay;
     private totalPriceDisplay;
     private feeDisplay;
-    private feeRecipientList;
+    private materialFeeRecipientDisplay;
+    private protocolFeeRecipientDisplay;
     constructor(address: `0x${string}`, tradeType: "buy" | "sell");
     private loadAllPrices;
     private loadBalance;

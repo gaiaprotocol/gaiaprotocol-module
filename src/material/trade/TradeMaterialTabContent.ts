@@ -1,10 +1,15 @@
 import { DomNode, el } from "@common-module/app";
-import { AppCompConfig, Input } from "@common-module/app-components";
+import {
+  AppCompConfig,
+  Button,
+  ButtonType,
+  Input,
+} from "@common-module/app-components";
 import { StringUtils } from "@common-module/ts";
 import { formatEther, parseEther } from "viem";
 import MaterialContract from "../contracts/MaterialContract.js";
 import MaterialFactoryContract from "../contracts/MaterialFactoryContract.js";
-import FeeRecipientList from "./FeeRecipientList.js";
+import FeeRecipientDisplay from "./FeeRecipientDisplay.js";
 
 export default abstract class TradeMaterialTabContent extends DomNode {
   private materialContract: MaterialContract;
@@ -14,7 +19,8 @@ export default abstract class TradeMaterialTabContent extends DomNode {
   private unitPriceDisplay: DomNode;
   private totalPriceDisplay: DomNode;
   private feeDisplay: DomNode;
-  private feeRecipientList: FeeRecipientList;
+  private materialFeeRecipientDisplay: FeeRecipientDisplay;
+  private protocolFeeRecipientDisplay: FeeRecipientDisplay;
 
   constructor(protected address: `0x${string}`, tradeType: "buy" | "sell") {
     super(".tab-content.trade-material");
@@ -34,6 +40,13 @@ export default abstract class TradeMaterialTabContent extends DomNode {
               "span.balance",
               new AppCompConfig.LoadingSpinner(),
             ),
+            new Button({
+              type: ButtonType.Outlined,
+              title: "Max",
+              onClick: () => {
+                this.amountInput.value = this.balanceDisplay.text;
+              },
+            }),
           ),
         ),
         this.amountInput = new Input({
@@ -76,7 +89,15 @@ export default abstract class TradeMaterialTabContent extends DomNode {
           el("h3", "Fee Recipients"),
           el("span.recipient-count", "2 recipients"),
         ),
-        this.feeRecipientList = new FeeRecipientList(),
+        el(
+          ".recipients",
+          this.materialFeeRecipientDisplay = new FeeRecipientDisplay(
+            "Material Owner",
+          ),
+          this.protocolFeeRecipientDisplay = new FeeRecipientDisplay(
+            "Protocol Owner",
+          ),
+        ),
       ),
     );
 

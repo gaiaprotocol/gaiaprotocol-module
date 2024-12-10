@@ -1,1 +1,1 @@
-{"version":3,"file":"FeeRecipientListItem.d.ts","sourceRoot":"","sources":["../../../src/material/trade/FeeRecipientListItem.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAE7C,MAAM,CAAC,OAAO,OAAO,oBAAqB,SAAQ,OAAO;;CAIxD"}
+{"version":3,"file":"FeeRecipientListItem.d.ts","sourceRoot":"","sources":["../../../src/material/trade/FeeRecipientListItem.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAE7C,MAAM,CAAC,OAAO,OAAO,oBAAqB,SAAQ,OAAO;gBAC3C,OAAO,EAAE,MAAM,EAAE,KAAK,EAAE,MAAM,EAAE,GAAG,EAAE,MAAM;CAGxD"}

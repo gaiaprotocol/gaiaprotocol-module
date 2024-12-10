@@ -1,0 +1,1 @@
+{"version":3,"file":"FeeRecipientDisplay.js","sourceRoot":"","sources":["../../../src/material/trade/FeeRecipientDisplay.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAE7C,MAAM,CAAC,OAAO,OAAO,mBAAoB,SAAQ,OAAO;IACtD,YAAY,KAAa;QACvB,KAAK,CAAC,wBAAwB,CAAC,CAAC;QAChC,IAAI,CAAC,IAAI,GAAG,KAAK,CAAC;IACpB,CAAC;CACF"}
