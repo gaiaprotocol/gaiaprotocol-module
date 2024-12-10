@@ -1,10 +1,15 @@
-import { StructuredModal } from "@common-module/app-components";
-export default class TradeMaterialModal extends StructuredModal {
+import { Modal } from "@common-module/app-components";
+export default class TradeMaterialModal extends Modal {
     private address;
+    private gameBanner;
     private materialIconDisplay;
     private materialNameDisplay;
     private materialDescriptionDisplay;
+    private tabGroup;
+    private buyTabContent;
+    private sellTabContent;
     constructor(address: string);
     private fetchMaterial;
+    private changeTab;
 }
 //# sourceMappingURL=TradeMaterialModal.d.ts.map

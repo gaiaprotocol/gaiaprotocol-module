@@ -1,23 +1,47 @@
 import { DomNode, el } from "@common-module/app";
-import { StructuredModal } from "@common-module/app-components";
+import { Modal, Tab, TabGroup } from "@common-module/app-components";
 import GameDataManager from "../../game/GameDataManager.js";
 import MaterialDataManager from "../MaterialDataManager.js";
+import BuyMaterialTabContent from "./BuyMaterialTabContent.js";
+import SellMaterialTabContent from "./SellMaterialTabContent.js";
 
-export default class TradeMaterialModal extends StructuredModal {
+export default class TradeMaterialModal extends Modal {
+  private gameBanner: DomNode;
+
   private materialIconDisplay: DomNode;
   private materialNameDisplay: DomNode;
   private materialDescriptionDisplay: DomNode;
 
+  private tabGroup: TabGroup<"buy" | "sell">;
+  private buyTabContent: BuyMaterialTabContent;
+  private sellTabContent: SellMaterialTabContent;
+
   constructor(private address: string) {
     super(".trade-material-modal");
 
-    this.appendToMain(
-      this.materialIconDisplay = el(".material-icon"),
-      this.materialNameDisplay = el("h2.material-name"),
-      this.materialDescriptionDisplay = el("p.material-description"),
+    this.append(
+      el(
+        "header",
+        this.gameBanner = el(".game-banner"),
+        this.materialIconDisplay = el(".material-icon"),
+        this.materialNameDisplay = el("h2.material-name"),
+      ),
+      el(
+        "main",
+        this.materialDescriptionDisplay = el("p.material-description"),
+        this.tabGroup = new TabGroup(
+          new Tab({ label: "Buy", value: "buy" }),
+          new Tab({ label: "Sell", value: "sell" }),
+        ),
+        this.buyTabContent = new BuyMaterialTabContent(),
+        this.sellTabContent = new SellMaterialTabContent(),
+      ),
     );
 
     this.fetchMaterial();
+
+    this.tabGroup.on("tabSelected", () => this.changeTab());
+    this.changeTab();
   }
 
   private async fetchMaterial() {
@@ -35,11 +59,22 @@ export default class TradeMaterialModal extends StructuredModal {
       }
 
       const game = await GameDataManager.getGame(material.game_id);
-      if (game) {
-        if (game.thumbnail_url) {
-          this.header.style({ backgroundImage: `url(${game.thumbnail_url})` });
-        }
+      if (game?.thumbnail_url) {
+        this.gameBanner.style({
+          backgroundImage: `url(${game.thumbnail_url})`,
+        });
       }
+    }
+  }
+
+  private changeTab() {
+    const tabName = this.tabGroup.getSelectedValue();
+    if (tabName === "buy") {
+      this.buyTabContent.removeClass("hidden");
+      this.sellTabContent.addClass("hidden");
+    } else if (tabName === "sell") {
+      this.buyTabContent.addClass("hidden");
+      this.sellTabContent.removeClass("hidden");
     }
   }
 }
