@@ -7,6 +7,15 @@ import MaterialArtifact from "./artifacts/Material.json" assert {
 export default class MaterialContract {
   constructor(private address: `0x${string}`) {}
 
+  public async getOwner(): Promise<string> {
+    return await WalletSessionManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: this.address,
+      abi: MaterialArtifact.abi,
+      functionName: "owner",
+    }) as string;
+  }
+
   public async balanceOf(account: string): Promise<bigint> {
     return await WalletSessionManager.readContract({
       chainId: GaiaProtocolConfig.getChainId(),

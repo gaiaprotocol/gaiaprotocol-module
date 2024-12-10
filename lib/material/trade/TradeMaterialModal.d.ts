@@ -8,7 +8,7 @@ export default class TradeMaterialModal extends Modal {
     private tabGroup;
     private buyTabContent;
     private sellTabContent;
-    constructor(address: string);
+    constructor(address: `0x${string}`);
     private fetchMaterial;
     private changeTab;
 }

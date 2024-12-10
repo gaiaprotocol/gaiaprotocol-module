@@ -16,7 +16,7 @@ export default class TradeMaterialModal extends Modal {
   private buyTabContent: BuyMaterialTabContent;
   private sellTabContent: SellMaterialTabContent;
 
-  constructor(private address: string) {
+  constructor(private address: `0x${string}`) {
     super(".trade-material-modal");
 
     this.append(
@@ -33,8 +33,8 @@ export default class TradeMaterialModal extends Modal {
           new Tab({ label: "Buy", value: "buy" }),
           new Tab({ label: "Sell", value: "sell" }),
         ),
-        this.buyTabContent = new BuyMaterialTabContent(),
-        this.sellTabContent = new SellMaterialTabContent(),
+        this.buyTabContent = new BuyMaterialTabContent(address),
+        this.sellTabContent = new SellMaterialTabContent(address),
       ),
     );
 

@@ -1,8 +1,15 @@
-import { DomNode } from "@common-module/app";
+import MaterialFactoryContract from "../contracts/MaterialFactoryContract.js";
+import TradeMaterialTabContent from "./TradeMaterialTabContent.js";
 
-export default class BuyMaterialTabContent extends DomNode {
-  constructor() {
-    super(".tab-content.buy-material");
-    this.append("Buy Material Tab Content");
+export default class BuyMaterialTabContent extends TradeMaterialTabContent {
+  constructor(private address: `0x${string}`) {
+    super("buy");
+  }
+
+  protected async loadPrice(amount: bigint) {
+    return await MaterialFactoryContract.getBuyPrice(
+      this.address,
+      amount,
+    );
   }
 }

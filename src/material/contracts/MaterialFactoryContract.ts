@@ -6,6 +6,70 @@ import MaterialFactoryArtifact from "./artifacts/MaterialFactory.json" assert {
 };
 
 class MaterialFactoryContract {
+  public async getProtocolFeeRate() {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "protocolFeeRate",
+    }) as bigint;
+  }
+
+  public async getMaterialOwnerFeeRate() {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "materialOwnerFeeRate",
+    }) as bigint;
+  }
+
+  public async getBuyPrice(materialAddress: `0x${string}`, amount: bigint) {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "getBuyPrice",
+      args: [materialAddress, amount],
+    }) as bigint;
+  }
+
+  public async getSellPrice(materialAddress: `0x${string}`, amount: bigint) {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "getSellPrice",
+      args: [materialAddress, amount],
+    }) as bigint;
+  }
+
+  public async getBuyPriceAfterFee(
+    materialAddress: `0x${string}`,
+    amount: bigint,
+  ) {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "getBuyPriceAfterFee",
+      args: [materialAddress, amount],
+    }) as bigint;
+  }
+
+  public async getSellPriceAfterFee(
+    materialAddress: `0x${string}`,
+    amount: bigint,
+  ) {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "getSellPriceAfterFee",
+      args: [materialAddress, amount],
+    }) as bigint;
+  }
+
   public async createMaterial(
     name: string,
     symbol: string,
