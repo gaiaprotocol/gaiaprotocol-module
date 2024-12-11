@@ -1,5 +1,7 @@
 import { DomNode } from "@common-module/app";
-export default abstract class TradeMaterialTabContent extends DomNode {
+export default abstract class TradeMaterialTabContent extends DomNode<HTMLDivElement, {
+    canceled: () => void;
+}> {
     protected address: `0x${string}`;
     private materialContract;
     private amountInput;
@@ -17,5 +19,6 @@ export default abstract class TradeMaterialTabContent extends DomNode {
     private loadFee;
     protected abstract loadPrice(amount: bigint): Promise<bigint>;
     protected abstract loadPriceAfterFee(amount: bigint): Promise<bigint>;
+    protected abstract trade(amount: bigint): Promise<void>;
 }
 //# sourceMappingURL=TradeMaterialTabContent.d.ts.map

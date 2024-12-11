@@ -91,6 +91,27 @@ class MaterialFactoryContract {
 
     throw new Error("Material creation failed");
   }
+
+  public async buy(materialAddress: `0x${string}`, amount: bigint) {
+    await WalletLoginManager.writeContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "buy",
+      args: [materialAddress, amount],
+      value: await this.getBuyPriceAfterFee(materialAddress, amount),
+    });
+  }
+
+  public async sell(materialAddress: `0x${string}`, amount: bigint) {
+    await WalletLoginManager.writeContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GaiaProtocolConfig.getContractAddress("MaterialFactory"),
+      abi: MaterialFactoryArtifact.abi,
+      functionName: "sell",
+      args: [materialAddress, amount],
+    });
+  }
 }
 
 export default new MaterialFactoryContract();

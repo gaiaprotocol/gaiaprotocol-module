@@ -38,6 +38,10 @@ export default class TradeMaterialModal extends Modal {
       ),
     );
 
+    [this.buyTabContent, this.sellTabContent].forEach((tabContent) => {
+      tabContent.on("canceled", () => this.remove());
+    });
+
     this.fetchMaterial();
 
     this.tabGroup.on("tabSelected", () => this.changeTab());

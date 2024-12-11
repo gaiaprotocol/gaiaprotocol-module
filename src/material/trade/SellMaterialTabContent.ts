@@ -16,4 +16,8 @@ export default class SellMaterialTabContent extends TradeMaterialTabContent {
       amount,
     );
   }
+
+  protected async trade(amount: bigint): Promise<void> {
+    await MaterialFactoryContract.sell(this.address, amount);
+  }
 }

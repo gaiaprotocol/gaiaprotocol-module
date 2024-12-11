@@ -6,12 +6,16 @@ import {
   Input,
 } from "@common-module/app-components";
 import { StringUtils } from "@common-module/ts";
+import { WalletLoginManager } from "@common-module/wallet-login";
 import { formatEther, parseEther } from "viem";
 import MaterialContract from "../contracts/MaterialContract.js";
 import MaterialFactoryContract from "../contracts/MaterialFactoryContract.js";
 import FeeRecipientDisplay from "./FeeRecipientDisplay.js";
 
-export default abstract class TradeMaterialTabContent extends DomNode {
+export default abstract class TradeMaterialTabContent
+  extends DomNode<HTMLDivElement, {
+    canceled: () => void;
+  }> {
   private materialContract: MaterialContract;
 
   private amountInput: Input;
@@ -40,13 +44,15 @@ export default abstract class TradeMaterialTabContent extends DomNode {
               "span.balance",
               new AppCompConfig.LoadingSpinner(),
             ),
-            new Button({
-              type: ButtonType.Outlined,
-              title: "Max",
-              onClick: () => {
-                this.amountInput.value = this.balanceDisplay.text;
-              },
-            }),
+            tradeType === "sell"
+              ? new Button({
+                type: ButtonType.Outlined,
+                title: "Max",
+                onClick: () => {
+                  this.amountInput.value = this.balanceDisplay.text;
+                },
+              })
+              : undefined,
           ),
         ),
         this.amountInput = new Input({
@@ -99,6 +105,23 @@ export default abstract class TradeMaterialTabContent extends DomNode {
           ),
         ),
       ),
+      el(
+        ".button-container",
+        new Button({
+          type: ButtonType.Contained,
+          title: `${StringUtils.capitalize(tradeType)} Material`,
+          onClick: async () => {
+            const amount = parseEther(this.amountInput.value);
+            await this.trade(amount);
+            this.loadAllPrices();
+          },
+        }),
+        new Button({
+          type: ButtonType.Outlined,
+          title: "Cancel",
+          onClick: () => this.emit("canceled"),
+        }),
+      ),
     );
 
     this.loadAllPrices();
@@ -113,8 +136,11 @@ export default abstract class TradeMaterialTabContent extends DomNode {
 
   private async loadBalance() {
     try {
+      const walletAddress = WalletLoginManager.getLoggedInAddress();
+      if (!walletAddress) throw new Error("Wallet not logged in");
+
       this.balanceDisplay.clear().append(new AppCompConfig.LoadingSpinner());
-      const balance = await this.materialContract.balanceOf(this.address);
+      const balance = await this.materialContract.balanceOf(walletAddress);
       this.balanceDisplay.clear().append(formatEther(balance));
     } catch (error) {
       console.error(error);
@@ -169,4 +195,5 @@ export default abstract class TradeMaterialTabContent extends DomNode {
 
   protected abstract loadPrice(amount: bigint): Promise<bigint>;
   protected abstract loadPriceAfterFee(amount: bigint): Promise<bigint>;
+  protected abstract trade(amount: bigint): Promise<void>;
 }

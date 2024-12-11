@@ -6,6 +6,8 @@ declare class MaterialFactoryContract {
     getBuyPriceAfterFee(materialAddress: `0x${string}`, amount: bigint): Promise<bigint>;
     getSellPriceAfterFee(materialAddress: `0x${string}`, amount: bigint): Promise<bigint>;
     createMaterial(name: string, symbol: string, metadataHash: string): Promise<string>;
+    buy(materialAddress: `0x${string}`, amount: bigint): Promise<void>;
+    sell(materialAddress: `0x${string}`, amount: bigint): Promise<void>;
 }
 declare const _default: MaterialFactoryContract;
 export default _default;
