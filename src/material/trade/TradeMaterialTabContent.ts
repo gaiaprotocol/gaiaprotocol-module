@@ -14,6 +14,7 @@ import FeeRecipientDisplay from "./FeeRecipientDisplay.js";
 
 export default abstract class TradeMaterialTabContent
   extends DomNode<HTMLDivElement, {
+    traded: () => void;
     canceled: () => void;
   }> {
   private materialContract: MaterialContract;
@@ -113,6 +114,7 @@ export default abstract class TradeMaterialTabContent
           onClick: async () => {
             const amount = parseEther(this.amountInput.value);
             await this.trade(amount);
+            this.emit("traded");
             this.loadAllPrices();
           },
         }),

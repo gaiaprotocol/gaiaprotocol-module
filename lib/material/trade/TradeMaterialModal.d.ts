@@ -1,5 +1,7 @@
 import { Modal } from "@common-module/app-components";
-export default class TradeMaterialModal extends Modal {
+export default class TradeMaterialModal extends Modal<{
+    traded: () => void;
+}> {
     private address;
     private gameBanner;
     private materialIconDisplay;

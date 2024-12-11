@@ -5,7 +5,9 @@ import MaterialDataManager from "../MaterialDataManager.js";
 import BuyMaterialTabContent from "./BuyMaterialTabContent.js";
 import SellMaterialTabContent from "./SellMaterialTabContent.js";
 
-export default class TradeMaterialModal extends Modal {
+export default class TradeMaterialModal extends Modal<{
+  traded: () => void;
+}> {
   private gameBanner: DomNode;
 
   private materialIconDisplay: DomNode;
@@ -39,6 +41,7 @@ export default class TradeMaterialModal extends Modal {
     );
 
     [this.buyTabContent, this.sellTabContent].forEach((tabContent) => {
+      tabContent.on("traded", () => this.emit("traded"));
       tabContent.on("canceled", () => this.remove());
     });
 

@@ -1,5 +1,6 @@
 import { DomNode } from "@common-module/app";
 export default abstract class TradeMaterialTabContent extends DomNode<HTMLDivElement, {
+    traded: () => void;
     canceled: () => void;
 }> {
     protected address: `0x${string}`;
