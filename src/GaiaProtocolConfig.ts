@@ -50,7 +50,7 @@ class GaiaProtocolConfig {
       PersonaFragments: "0x36Cfa7BCD0F4b803e3421Dac9E894A3Db034b03C",
       ClanEmblems: "0x9322C4A5E5725262C9960aDE87259d1cE2812412",
       TopicShares: "0x603E1F1673EEC57Ca72A7A5543A34a853CF61a5E",
-      MaterialFactory: "0x8A89D79282577E78968eECF6a9d5fC1B5FE58AbD",
+      MaterialFactory: "0x5A131Af55290f9796024C33e548E14FDc73F7F5D",
     },
   };
 
