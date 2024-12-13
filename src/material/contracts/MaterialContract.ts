@@ -1,4 +1,4 @@
-import { WalletSessionManager } from "@common-module/wallet";
+import { WalletLoginManager } from "@common-module/wallet-login";
 import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
 import MaterialArtifact from "./artifacts/Material.json" assert {
   type: "json",
@@ -8,7 +8,7 @@ export default class MaterialContract {
   constructor(private address: `0x${string}`) {}
 
   public async getOwner(): Promise<string> {
-    return await WalletSessionManager.readContract({
+    return await WalletLoginManager.readContract({
       chainId: GaiaProtocolConfig.getChainId(),
       address: this.address,
       abi: MaterialArtifact.abi,
@@ -17,7 +17,7 @@ export default class MaterialContract {
   }
 
   public async balanceOf(account: string): Promise<bigint> {
-    return await WalletSessionManager.readContract({
+    return await WalletLoginManager.readContract({
       chainId: GaiaProtocolConfig.getChainId(),
       address: this.address,
       abi: MaterialArtifact.abi,
@@ -27,7 +27,7 @@ export default class MaterialContract {
   }
 
   public async setName(name: string): Promise<void> {
-    await WalletSessionManager.writeContract({
+    await WalletLoginManager.writeContract({
       chainId: GaiaProtocolConfig.getChainId(),
       address: this.address,
       abi: MaterialArtifact.abi,
@@ -37,7 +37,7 @@ export default class MaterialContract {
   }
 
   public async setSymbol(symbol: string): Promise<void> {
-    await WalletSessionManager.writeContract({
+    await WalletLoginManager.writeContract({
       chainId: GaiaProtocolConfig.getChainId(),
       address: this.address,
       abi: MaterialArtifact.abi,
