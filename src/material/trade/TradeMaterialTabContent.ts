@@ -1,5 +1,6 @@
 import { DomNode, el } from "@common-module/app";
 import {
+  AlertDialog,
   AppCompConfig,
   Button,
   ButtonType,
@@ -7,6 +8,7 @@ import {
 } from "@common-module/app-components";
 import { StringUtils } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
+import { SuccessIcon } from "@gaiaprotocol/svg-icons";
 import { formatEther, parseEther } from "viem";
 import MaterialContract from "../contracts/MaterialContract.js";
 import MaterialFactoryContract from "../contracts/MaterialFactoryContract.js";
@@ -26,8 +28,14 @@ export default abstract class TradeMaterialTabContent
   private feeDisplay: DomNode;
   private materialFeeRecipientDisplay: FeeRecipientDisplay;
   private protocolFeeRecipientDisplay: FeeRecipientDisplay;
+  private tradeButton: Button;
 
-  constructor(protected address: `0x${string}`, tradeType: "buy" | "sell") {
+  private symbol: string | undefined;
+
+  constructor(
+    private tradeType: "buy" | "sell",
+    protected address: `0x${string}`,
+  ) {
     super(".tab-content.trade-material");
 
     this.materialContract = new MaterialContract(address);
@@ -58,8 +66,20 @@ export default abstract class TradeMaterialTabContent
         ),
         this.amountInput = new Input({
           placeholder: "0.0000",
-          value: "1",
-          onChange: () => this.loadAllPrices(),
+          //value: "1",
+          onChange: () => {
+            try {
+              const amount = parseEther(this.amountInput.value);
+              amount > 0n
+                ? this.tradeButton.enable()
+                : this.tradeButton.disable();
+            } catch (error) {
+              console.error(error);
+              this.tradeButton.disable();
+            }
+
+            this.loadAllPrices();
+          },
         }),
       ),
       el(
@@ -108,14 +128,23 @@ export default abstract class TradeMaterialTabContent
       ),
       el(
         ".button-container",
-        new Button({
+        this.tradeButton = new Button({
           type: ButtonType.Contained,
           title: `${StringUtils.capitalize(tradeType)} Material`,
+          disabled: this.amountInput.value.trim() === "",
           onClick: async () => {
             const amount = parseEther(this.amountInput.value);
             await this.trade(amount);
             this.emit("traded");
             this.loadAllPrices();
+
+            new AlertDialog({
+              icon: new SuccessIcon(),
+              title: "Trade Successful",
+              message: `You have successfully ${tradeType}ed ${
+                formatEther(amount)
+              } ${this.symbol ?? "material"}.`,
+            });
           },
         }),
         new Button({
@@ -193,6 +222,14 @@ export default abstract class TradeMaterialTabContent
       console.error(error);
       this.feeDisplay.clear().append(new AppCompConfig.ErrorIcon());
     }
+  }
+
+  public setSymbol(symbol: string) {
+    this.symbol = symbol;
+
+    this.tradeButton.title = `${
+      StringUtils.capitalize(this.tradeType)
+    } ${symbol}`;
   }
 
   protected abstract loadPrice(amount: bigint): Promise<bigint>;

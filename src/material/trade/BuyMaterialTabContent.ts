@@ -3,7 +3,7 @@ import TradeMaterialTabContent from "./TradeMaterialTabContent.js";
 
 export default class BuyMaterialTabContent extends TradeMaterialTabContent {
   constructor(address: `0x${string}`) {
-    super(address, "buy");
+    super("buy", address);
   }
 
   protected async loadPrice(amount: bigint) {

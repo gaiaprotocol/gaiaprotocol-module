@@ -65,6 +65,12 @@ export default class TradeMaterialModal extends Modal<{
         this.materialDescriptionDisplay.text = material.description;
       }
 
+      if (material.symbol) {
+        [this.buyTabContent, this.sellTabContent].forEach((tabContent) => {
+          tabContent.setSymbol(material.symbol!);
+        });
+      }
+
       const game = await GameDataManager.getGame(material.game_id);
       if (game?.thumbnail_url) {
         this.gameBanner.style({
