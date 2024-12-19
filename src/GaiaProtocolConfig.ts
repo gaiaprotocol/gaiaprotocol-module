@@ -47,10 +47,10 @@ class GaiaProtocolConfig {
       MaterialFactory: "0x", //TODO:
     },
     testnet: {
-      PersonaFragments: "0x36Cfa7BCD0F4b803e3421Dac9E894A3Db034b03C",
+      PersonaFragments: "0xa7727F706e1cbF6E5e7C38596067ab47A770cbB2",
       ClanEmblems: "0x9322C4A5E5725262C9960aDE87259d1cE2812412",
       TopicShares: "0x603E1F1673EEC57Ca72A7A5543A34a853CF61a5E",
-      MaterialFactory: "0x5A131Af55290f9796024C33e548E14FDc73F7F5D",
+      MaterialFactory: "0x9EF42F082360c606d3D0480404F47924323B4D8b",
     },
   };
 
