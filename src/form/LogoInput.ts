@@ -7,7 +7,7 @@ import {
 } from "@common-module/app-components";
 import { ObjectUtils } from "@common-module/ts";
 import { DeleteIcon, UploadIcon } from "@gaiaprotocol/svg-icons";
-import GaiaProtocolConfig from "../GaiaProtocolConfig.js";
+import GaiaProtocolConfig from "../core/GaiaProtocolConfig.js";
 
 interface LogoInputOptions {
   functionName: string;

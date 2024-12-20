@@ -1,6 +1,7 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { stringToHex } from "viem";
-import GaiaProtocolConfig from "../../GaiaProtocolConfig.js";
+import ContractAddressManager from "../../core/ContractAddressManager.js";
+import GaiaProtocolConfig from "../../core/GaiaProtocolConfig.js";
 import ClanEmblemsArtifact from "./artifacts/ClanEmblems.json" assert {
   type: "json",
 };
@@ -9,7 +10,7 @@ class ClanEmblemsContract {
   public async createClan(metadataHash: string): Promise<bigint> {
     const events = await WalletLoginManager.writeContract({
       chainId: GaiaProtocolConfig.getChainId(),
-      address: GaiaProtocolConfig.getContractAddress("ClanEmblems"),
+      address: ContractAddressManager.getContractAddress("ClanEmblems"),
       abi: ClanEmblemsArtifact.abi,
       functionName: "createClan",
       args: [stringToHex(metadataHash, { size: 32 })],

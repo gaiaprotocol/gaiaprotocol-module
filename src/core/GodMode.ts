@@ -1,5 +1,5 @@
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
-import GaiaNameRepository from "./gaia-names/GaiaNameRepository.js";
+import GaiaNameRepository from "../gaia-names/GaiaNameRepository.js";
 
 class GodMode {
   public authTokenManager = new AuthTokenManager("god-mode-auth-token");

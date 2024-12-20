@@ -9,15 +9,15 @@ import {
 } from "@common-module/wallet-login";
 import { AddressUtils } from "@common-module/wallet-utils";
 import { base, baseSepolia } from "@wagmi/core/chains";
-import ClanRepository from "./clan/ClanRepository.js";
-import GameRepository from "./game/GameRepository.js";
+import ClanRepository from "../clan/ClanRepository.js";
+import GameRepository from "../game/GameRepository.js";
+import MaterialRepository from "../material/MaterialRepository.js";
+import PersonaAvatar from "../persona/PersonaAvatar.js";
+import PersonaRepository from "../persona/PersonaRepository.js";
+import PersonaUtils from "../persona/PersonaUtils.js";
 import GodMode from "./GodMode.js";
-import MaterialRepository from "./material/MaterialRepository.js";
-import PersonaAvatar from "./persona/PersonaAvatar.js";
-import PersonaRepository from "./persona/PersonaRepository.js";
-import PersonaUtils from "./persona/PersonaUtils.js";
 
-const repositories = [
+const REPOSITORIES = [
   GameRepository,
   PersonaRepository,
   ClanRepository,
@@ -39,35 +39,8 @@ class GaiaProtocolConfig {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5a3prcXFuY3hjZnpmbHBrY3NyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MDc0OTUsImV4cCI6MjA0NDk4MzQ5NX0.UEGqZvIJ_FPxBk41C0RG4HfHahtR0yUfYVmtiZf61i0",
   };
 
-  private contractAddresses: Record<string, Record<string, `0x${string}`>> = {
-    mainnet: {
-      PersonaFragments: "0x", //TODO:
-      ClanEmblems: "0x", //TODO:
-      TopicShares: "0x", //TODO:
-      MaterialFactory: "0x", //TODO:
-    },
-    testnet: {
-      PersonaFragments: "0xa7727F706e1cbF6E5e7C38596067ab47A770cbB2",
-      ClanEmblems: "0x9322C4A5E5725262C9960aDE87259d1cE2812412",
-      TopicShares: "0x603E1F1673EEC57Ca72A7A5543A34a853CF61a5E",
-      MaterialFactory: "0x9EF42F082360c606d3D0480404F47924323B4D8b",
-    },
-  };
-
   public getChainId() {
     return this.isTestnet ? baseSepolia.id : base.id;
-  }
-
-  public getContractAddress(
-    contractName:
-      | "PersonaFragments"
-      | "ClanEmblems"
-      | "TopicShares"
-      | "MaterialFactory",
-  ) {
-    return this.contractAddresses[this.isTestnet ? "testnet" : "mainnet"][
-      contractName
-    ];
   }
 
   private _supabaesConnector: SupabaseConnector | undefined;
@@ -98,7 +71,7 @@ class GaiaProtocolConfig {
 
     [
       WalletLoginConfig,
-      ...repositories,
+      ...REPOSITORIES,
     ].forEach((repo) => repo.supabaseConnector = this.supabaseConnector);
 
     SocialCompConfig.Avatar = PersonaAvatar;
