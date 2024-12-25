@@ -8,6 +8,7 @@ declare class MaterialDataManager extends EventContainer<{
     setMaterial(material: MaterialEntity): void;
     getMaterial(materialAddress: string): Promise<MaterialEntity | undefined>;
     getMaterialsByGame(gameId: number): Promise<MaterialEntity[]>;
+    getMaterialsNotAddedToGame(): Promise<MaterialEntity[]>;
     updateMaterial(material: MaterialEntity): Promise<MaterialEntity>;
 }
 declare const _default: MaterialDataManager;

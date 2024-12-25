@@ -4,6 +4,7 @@ declare class MaterialRepository extends SupabaseDataRepository<MaterialEntity> 
     constructor();
     fetchByAddress(address: string): Promise<MaterialEntity | undefined>;
     fetchByGame(gameId: number): Promise<MaterialEntity[]>;
+    fetchNotAddedToGame(): Promise<MaterialEntity[]>;
     update(material: MaterialEntity): Promise<MaterialEntity>;
 }
 declare const _default: MaterialRepository;

@@ -39,6 +39,12 @@ class MaterialDataManager extends EventContainer<{
     return materials;
   }
 
+  public async getMaterialsNotAddedToGame(): Promise<MaterialEntity[]> {
+    const materials = await MaterialRepository.fetchNotAddedToGame();
+    materials.forEach((material) => this.setMaterial(material));
+    return materials;
+  }
+
   public async updateMaterial(
     material: MaterialEntity,
   ): Promise<MaterialEntity> {
