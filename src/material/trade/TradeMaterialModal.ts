@@ -18,7 +18,7 @@ export default class TradeMaterialModal extends Modal<{
   private buyTabContent: BuyMaterialTabContent;
   private sellTabContent: SellMaterialTabContent;
 
-  constructor(private address: `0x${string}`) {
+  constructor(private address: `0x${string}`, displayPoweredBy = true) {
     super(".trade-material-modal");
 
     this.append(
@@ -38,6 +38,27 @@ export default class TradeMaterialModal extends Modal<{
         this.buyTabContent = new BuyMaterialTabContent(address),
         this.sellTabContent = new SellMaterialTabContent(address),
       ),
+      displayPoweredBy
+        ? el(
+          "footer",
+          el(
+            ".powered-by",
+            "Powered by ",
+            el(
+              "a",
+              "Gaia Materials",
+              el("img", {
+                src:
+                  "https://common-resources.gaia.cc/mini-icons/gaia-materials.png",
+              }),
+              {
+                href: "https://materials.gaia.cc",
+                target: "_blank",
+              },
+            ),
+          ),
+        )
+        : undefined,
     );
 
     [this.buyTabContent, this.sellTabContent].forEach((tabContent) => {
