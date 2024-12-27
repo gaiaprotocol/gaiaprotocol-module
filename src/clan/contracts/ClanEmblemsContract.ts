@@ -2,7 +2,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { stringToHex } from "viem";
 import ContractAddressManager from "../../core/ContractAddressManager.js";
 import GaiaProtocolConfig from "../../core/GaiaProtocolConfig.js";
-import ClanEmblemsArtifact from "./artifacts/ClanEmblems.json" assert {
+import ClanEmblemsArtifact from "./artifacts/ClanEmblems.json" with {
   type: "json",
 };
 
