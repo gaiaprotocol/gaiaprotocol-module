@@ -67,9 +67,7 @@ export default class TradeMaterialModal extends Modal<{
     });
 
     this.fetchMaterial();
-
-    this.tabGroup.on("tabSelected", () => this.changeTab());
-    this.changeTab();
+    this.tabGroup.on("tabSelected", () => this.changeTab()).init();
   }
 
   private async fetchMaterial() {
