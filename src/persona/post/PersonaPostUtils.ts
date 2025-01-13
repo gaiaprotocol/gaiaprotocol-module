@@ -4,7 +4,7 @@ import PersonaPostEntity from "./PersonaPostEntity.js";
 class PersonaPostUtils {
   public convertPersonaPostToSocialPost(personaPost: PersonaPostEntity): Post {
     return {
-      id: personaPost.id,
+      id: personaPost.id.toString(),
       author: personaPost.author,
 
       title: personaPost.title,
