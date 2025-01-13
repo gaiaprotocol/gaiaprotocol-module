@@ -7,8 +7,8 @@ class PersonaPostRepository extends SupabaseDataRepository<PersonaPostEntity> {
     super("persona_posts", PersonaPostQuery);
   }
 
-  public async writePost(title: string, content: string): Promise<void> {
-    await GaiaProtocolConfig.supabaseConnector.callEdgeFunction(
+  public async writePost(title: string, content: string): Promise<number> {
+    return await GaiaProtocolConfig.supabaseConnector.callEdgeFunction(
       "write-persona-post",
       { title, content },
     );
