@@ -2,7 +2,7 @@ import { Reaction, Rich } from "@common-module/social-components";
 
 export default interface PersonaPostEntity {
   id: number;
-  author: string;
+  persona_owner: string;
 
   title: string;
   content: string;
@@ -14,4 +14,4 @@ export default interface PersonaPostEntity {
   edited_at?: string;
 }
 
-export const PersonaPostQuery = "id, author, title, content, created_at";
+export const PersonaPostQuery = "id, persona_owner, title, content, created_at";

@@ -1,7 +1,7 @@
 import { Reaction, Rich } from "@common-module/social-components";
 export default interface PersonaPostEntity {
     id: number;
-    author: string;
+    persona_owner: string;
     title: string;
     content: string;
     rich?: Rich;
@@ -9,5 +9,5 @@ export default interface PersonaPostEntity {
     created_at: string;
     edited_at?: string;
 }
-export declare const PersonaPostQuery = "id, author, title, content, created_at";
+export declare const PersonaPostQuery = "id, persona_owner, title, content, created_at";
 //# sourceMappingURL=PersonaPostEntity.d.ts.map

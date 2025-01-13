@@ -5,7 +5,7 @@ class PersonaPostUtils {
   public convertPersonaPostToSocialPost(personaPost: PersonaPostEntity): Post {
     return {
       id: personaPost.id.toString(),
-      author: personaPost.author,
+      author: personaPost.persona_owner,
 
       title: personaPost.title,
       content: personaPost.content,

@@ -14,8 +14,13 @@ class PersonaPostRepository extends SupabaseDataRepository<PersonaPostEntity> {
     );
   }
 
-  public async fetchPost(id: number): Promise<PersonaPostEntity | undefined> {
-    return this.fetchSingle((b) => b.eq("id", id));
+  public async fetchPost(
+    personaOwner: string,
+    id: number,
+  ): Promise<PersonaPostEntity | undefined> {
+    return this.fetchSingle((b) =>
+      b.eq("persona_owner", personaOwner).eq("id", id)
+    );
   }
 }
 
