@@ -15,11 +15,15 @@ import MaterialRepository from "../material/MaterialRepository.js";
 import PersonaAvatar from "../persona/PersonaAvatar.js";
 import PersonaRepository from "../persona/PersonaRepository.js";
 import PersonaUtils from "../persona/PersonaUtils.js";
+import PersonaPostRepository from "../persona/post/PersonaPostRepository.js";
 import GodMode from "./GodMode.js";
 
 const REPOSITORIES = [
   GameRepository,
+
   PersonaRepository,
+  PersonaPostRepository,
+
   ClanRepository,
   MaterialRepository,
 ];

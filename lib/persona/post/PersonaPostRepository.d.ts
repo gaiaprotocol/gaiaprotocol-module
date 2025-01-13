@@ -3,6 +3,7 @@ import PersonaPostEntity from "./PersonaPostEntity.js";
 declare class PersonaPostRepository extends SupabaseDataRepository<PersonaPostEntity> {
     constructor();
     writePost(title: string, content: string): Promise<number>;
+    fetchPost(id: number): Promise<PersonaPostEntity | undefined>;
 }
 declare const _default: PersonaPostRepository;
 export default _default;

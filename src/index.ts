@@ -18,5 +18,5 @@ export { default as PersonaAvatar } from "./persona/PersonaAvatar.js";
 export { default as PersonaDisplay } from "./persona/PersonaDisplay.js";
 export { default as PersonaEntity } from "./persona/PersonaEntity.js";
 export { default as PersonaRepository } from "./persona/PersonaRepository.js";
+export { default as PersonaPostEntity } from "./persona/post/PersonaPostEntity.js";
 export { default as PersonaPostRepository } from "./persona/post/PersonaPostRepository.js";
-
