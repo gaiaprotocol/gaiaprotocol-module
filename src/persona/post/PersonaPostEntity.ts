@@ -14,4 +14,5 @@ export default interface PersonaPostEntity {
   edited_at?: string;
 }
 
-export const PersonaPostQuery = "id, persona_owner, title, content, created_at";
+export const PersonaPostQuery =
+  "id, persona_owner, title, content, rich, reactions, created_at, edited_at";
