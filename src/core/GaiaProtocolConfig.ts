@@ -1,3 +1,5 @@
+import { Store } from "@common-module/app";
+import { AlertDialog } from "@common-module/app-components";
 import {
   SocialCompConfig,
   UserManager,
@@ -60,10 +62,17 @@ class GaiaProtocolConfig {
 
   public onLoggedInUserPersonaNotFound: () => void = () => {};
 
-  public initOnlyForGaiaProtocol(
-    isDevMode: boolean,
-    isTestnet: boolean,
-  ) {
+  constructor() {
+    if (!Store.isStorageAvailable()) {
+      new AlertDialog({
+        title: "Storage Access Required",
+        message:
+          "This service requires storage access to function properly. Please enable site data storage in your browser settings to continue using all features.",
+      });
+    }
+  }
+
+  public initOnlyForGaiaProtocol(isDevMode: boolean, isTestnet: boolean) {
     this.isDevMode = isDevMode;
     this.isTestnet = isTestnet;
 
@@ -130,6 +139,7 @@ class GaiaProtocolConfig {
   }
 
   public initForGodMode(isDevMode: boolean, isTestnet: boolean) {
+    GodMode.init();
     this.init(
       isDevMode,
       isTestnet,

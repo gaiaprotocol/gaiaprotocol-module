@@ -9,6 +9,7 @@ declare class GaiaProtocolConfig {
     get supabaseConnector(): SupabaseConnector;
     set supabaseConnector(connector: SupabaseConnector);
     onLoggedInUserPersonaNotFound: () => void;
+    constructor();
     initOnlyForGaiaProtocol(isDevMode: boolean, isTestnet: boolean): void;
     private checkLoggedInUserHasPersona;
     init(isDevMode: boolean, isTestnet: boolean, supabaseConnectorForApp: SupabaseConnector, authTokenManagerForApp: AuthTokenManager): void;

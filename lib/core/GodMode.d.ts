@@ -1,8 +1,8 @@
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 declare class GodMode {
-    authTokenManager: AuthTokenManager<Record<string, (...args: any[]) => any>>;
+    authTokenManager: AuthTokenManager;
     supabaseConnector: SupabaseConnector;
-    constructor();
+    init(): void;
 }
 declare const _default: GodMode;
 export default _default;

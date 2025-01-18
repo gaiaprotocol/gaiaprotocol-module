@@ -1,1 +1,1 @@
-{"version":3,"file":"GodMode.d.ts","sourceRoot":"","sources":["../../src/core/GodMode.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,iBAAiB,EAAE,MAAM,yBAAyB,CAAC;AAG9E,cAAM,OAAO;IACJ,gBAAgB,4DAA+C;IAC/D,iBAAiB,oBAItB;;CAKH;;AAED,wBAA6B"}
+{"version":3,"file":"GodMode.d.ts","sourceRoot":"","sources":["../../src/core/GodMode.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,iBAAiB,EAAE,MAAM,yBAAyB,CAAC;AAG9E,cAAM,OAAO;IACJ,gBAAgB,EAAG,gBAAgB,CAAC;IACpC,iBAAiB,EAAG,iBAAiB,CAAC;IAEtC,IAAI;CASZ;;AAED,wBAA6B"}

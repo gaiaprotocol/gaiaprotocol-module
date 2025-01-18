@@ -9,5 +9,5 @@ export default interface PersonaPostEntity {
     created_at: string;
     edited_at?: string;
 }
-export declare const PersonaPostQuery = "id, persona_owner, title, content, created_at";
+export declare const PersonaPostQuery = "id, persona_owner, title, content, rich, reactions, created_at, edited_at";
 //# sourceMappingURL=PersonaPostEntity.d.ts.map
