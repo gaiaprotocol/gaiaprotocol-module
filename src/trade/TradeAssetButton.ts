@@ -1,4 +1,5 @@
 import {
+  AlertDialog,
   AppCompConfig,
   Button,
   ButtonType,
@@ -33,6 +34,11 @@ export default abstract class TradeAssetButton extends Button {
 
     this.on("click", () => {
       console.log(isHolder, price);
+
+      new AlertDialog({
+        title: "Work in Progress",
+        message: "This feature is not yet available.",
+      });
     });
   }
 }
