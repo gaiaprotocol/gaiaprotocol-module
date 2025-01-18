@@ -37,7 +37,7 @@ export default class LogoInput extends DomNode<HTMLDivElement, {
         onUpload: (files) => this.uploadLogoImage(files[0]),
       }, new UploadIcon()),
       new Button(".clear", {
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new DeleteIcon(),
         onClick: () => this.data = undefined,
       }),

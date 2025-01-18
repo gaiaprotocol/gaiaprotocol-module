@@ -1,3 +1,4 @@
+/*
 import { Post } from "@common-module/social-components";
 import PersonaPostEntity from "./PersonaPostEntity.js";
 
@@ -20,3 +21,4 @@ class PersonaPostUtils {
 }
 
 export default new PersonaPostUtils();
+*/
