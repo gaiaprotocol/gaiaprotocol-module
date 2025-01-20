@@ -153,7 +153,7 @@ class GaiaProtocolConfig {
       }
     } catch (e) {
       console.log(e);
-      //WalletLoginManager.logout();
+      WalletLoginManager.logout();
     }
   }
 
