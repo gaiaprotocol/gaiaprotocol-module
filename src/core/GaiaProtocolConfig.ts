@@ -139,6 +139,10 @@ class GaiaProtocolConfig {
       authTokenManagerForApp.token = await supabaseConnectorForApp
         .callEdgeFunction<string>("inject-login-credentials", { token });
     };
+
+    if (WalletLoginManager.token && !authTokenManagerForApp.token) {
+      WalletLoginManager.logout();
+    }
   }
 
   public initForGodMode(isDevMode: boolean, isTestnet: boolean) {
