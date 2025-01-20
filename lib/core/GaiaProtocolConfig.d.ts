@@ -12,7 +12,7 @@ declare class GaiaProtocolConfig {
     constructor();
     initOnlyForGaiaProtocol(isDevMode: boolean, isTestnet: boolean): void;
     private checkLoggedInUserHasPersona;
-    init(isDevMode: boolean, isTestnet: boolean, supabaseConnectorForApp: SupabaseConnector, authTokenManagerForApp: AuthTokenManager): void;
+    init(isDevMode: boolean, isTestnet: boolean, supabaseConnectorForApp: SupabaseConnector, authTokenManagerForApp: AuthTokenManager): Promise<void>;
     initForGodMode(isDevMode: boolean, isTestnet: boolean): void;
 }
 declare const _default: GaiaProtocolConfig;

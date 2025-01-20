@@ -127,7 +127,7 @@ class GaiaProtocolConfig {
     if (user.isFallback) this.onLoggedInUserPersonaNotFound();
   }
 
-  public init(
+  public async init(
     isDevMode: boolean,
     isTestnet: boolean,
     supabaseConnectorForApp: SupabaseConnector,
@@ -142,6 +142,18 @@ class GaiaProtocolConfig {
 
     if (WalletLoginManager.token && !authTokenManagerForApp.token) {
       WalletLoginManager.logout();
+    }
+
+    try {
+      const walletAddress = await supabaseConnectorForApp.callEdgeFunction(
+        "check-jwt-token",
+      );
+      if (walletAddress !== WalletLoginManager.getLoggedInAddress()) {
+        WalletLoginManager.logout();
+      }
+    } catch (e) {
+      console.log(e);
+      //WalletLoginManager.logout();
     }
   }
 
