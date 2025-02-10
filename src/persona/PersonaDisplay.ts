@@ -8,13 +8,12 @@ import WalletAddressMenu from "./WalletAddressMenu.js";
 import TradePersonaFragmentButton from "./trade/TradePersonaFragmentButton.js";
 
 interface PersonaDisplayOptions {
-  persona: PersonaEntity;
   showEditButton: boolean;
   onEditClick: () => void;
 }
 
 export default class PersonaDisplay extends DomNode {
-  constructor(options: PersonaDisplayOptions) {
+  constructor(persona: PersonaEntity, options: PersonaDisplayOptions) {
     super(".persona-display");
     this.append(
       el(
@@ -22,7 +21,7 @@ export default class PersonaDisplay extends DomNode {
         el(
           ".avatar-container",
           new PersonaAvatar(
-            PersonaUtils.convertPersonaToSocialUser(options.persona),
+            PersonaUtils.convertPersonaToSocialUser(persona),
           ),
         ),
         el(
@@ -31,12 +30,16 @@ export default class PersonaDisplay extends DomNode {
             ".user-info",
             el(
               ".name-and-wallet-address",
-              el("h2.name", options.persona.name),
+              el(
+                "h2.name",
+                persona.name ??
+                  AddressUtils.shortenAddress(persona.wallet_address),
+              ),
               el(
                 "p.wallet-address",
                 el(
                   "a",
-                  AddressUtils.shortenAddress(options.persona.wallet_address),
+                  AddressUtils.shortenAddress(persona.wallet_address),
                   {
                     onclick: (event) => {
                       event.preventDefault();
@@ -45,7 +48,7 @@ export default class PersonaDisplay extends DomNode {
                       new WalletAddressMenu(
                         event.clientX,
                         event.clientY,
-                        options.persona.wallet_address,
+                        persona.wallet_address,
                       );
                     },
                   },
@@ -54,7 +57,7 @@ export default class PersonaDisplay extends DomNode {
             ),
             el(
               ".pc-button-container",
-              new TradePersonaFragmentButton(options.persona.wallet_address),
+              new TradePersonaFragmentButton(persona.wallet_address),
               options.showEditButton
                 ? new Button({
                   type: ButtonType.Outlined,
@@ -64,12 +67,12 @@ export default class PersonaDisplay extends DomNode {
                 : undefined,
             ),
           ),
-          el("p.bio", options.persona.bio),
+          el("p.bio", persona.bio),
         ),
       ),
       el(
         ".mobile-button-container",
-        new TradePersonaFragmentButton(options.persona.wallet_address),
+        new TradePersonaFragmentButton(persona.wallet_address),
         options.showEditButton
           ? new Button({
             type: ButtonType.Outlined,

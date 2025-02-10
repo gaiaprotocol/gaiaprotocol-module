@@ -1,9 +1,12 @@
+import {
+  SocialCompConfig,
+  UserManager,
+} from "@common-module/social-components";
 import GaiaProtocolConfig from "../core/GaiaProtocolConfig.js";
 import PersonaEntity from "./PersonaEntity.js";
 
 class PersonaManager {
-  private getNameValidationError(name: string | undefined): string | undefined {
-    if (!name) return "Please enter a name.";
+  private getNameValidationError(name: string): string | undefined {
     if (name.length > 100) return "The name is too long.";
 
     const validCharsRegex = /^[\p{L}\p{N}\p{Emoji}-]+$/u;
@@ -25,7 +28,10 @@ class PersonaManager {
   }
 
   public async savePersona(persona: PersonaEntity) {
-    if (!persona.is_ens_name && !persona.is_basename && !persona.is_gaia_name) {
+    if (
+      persona.name &&
+      !persona.is_ens_name && !persona.is_basename && !persona.is_gaia_name
+    ) {
       const nameValidationError = this.getNameValidationError(persona.name);
       if (nameValidationError) throw new Error(nameValidationError);
     }
@@ -33,6 +39,11 @@ class PersonaManager {
     await GaiaProtocolConfig.supabaseConnector.callEdgeFunction(
       "save-persona",
       persona,
+    );
+
+    // refetch user to get the updated data
+    UserManager.setUser(
+      await SocialCompConfig.fetchUser(persona.wallet_address),
     );
   }
 }
