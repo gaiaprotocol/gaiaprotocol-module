@@ -2,13 +2,13 @@
   "name": "gaiaprotocol",
   "author": "Gaia Protocol",
   "homepage": "https://gaiaprotocol.com",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "type": "module",
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
   "dependencies": {
     "@common-module/social-components": "^0.1.6",
-    "@common-module/wallet-login": "^0.2.3"
+    "@common-module/wallet-login": "^0.2.4"
   },
   "devDependencies": {}
 }
