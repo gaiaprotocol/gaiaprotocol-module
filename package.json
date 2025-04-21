@@ -7,8 +7,8 @@
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
   "dependencies": {
-    "@common-module/social-components": "^0.1.7",
-    "@common-module/wallet-login": "^0.2.4"
+    "@commonmodule/social-components": "^0.1.7",
+    "@commonmodule/wallet-login": "^0.2.4"
   },
   "devDependencies": {}
 }
